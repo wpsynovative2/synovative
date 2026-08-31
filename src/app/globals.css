@@ -1,0 +1,396 @@
+@import "tailwindcss";
+
+/* Dark mode is driven by a `.dark` class on <html>, set by the navbar toggle. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ==========================================================================
+   Design tokens — "paper craft" theme
+   Brand: purple #5f3ca7 + amber #faac37 on warm cream stock.
+   Every surface is a sheet of paper: cream in light mode, night kraft in dark.
+   ========================================================================== */
+
+:root {
+  /* Paper stock */
+  --paper: #f6f2ea;
+  --paper-raised: #fffdf8;
+  --paper-sunken: #ebe4d7;
+  --paper-tint: #f1ecf7;
+
+  /* Ink */
+  --ink: #2a2135;
+  --ink-soft: #5b5169;
+  --ink-faint: #8d84a0;
+  --ink-inverse: #fffdf8;
+
+  /* Brand — purple */
+  --brand: #5f3ca7;
+  --brand-deep: #452a7c;
+  --brand-soft: #b9a3e0;
+  --brand-wash: #ece5f7;
+
+  /*
+   * Purple used as a SURFACE (navbar, footer, CTA bands) rather than as ink.
+   * It needs its own token: `--brand` lightens in dark mode so purple text
+   * stays legible on paper, which would turn these always-white-text bands
+   * into pale lavender. These stay dark in both themes.
+   */
+  --brand-surface: #5f3ca7;
+  --brand-surface-deep: #452a7c;
+
+  /*
+   * Text/icon colour for anything filled with `--brand`. Paired with it so a
+   * chip stays legible in both themes: white on dark purple in light mode,
+   * dark ink on light purple in dark mode.
+   */
+  --on-brand: #ffffff;
+
+  /* Brand — amber */
+  --accent: #faac37;
+  --accent-deep: #d98d14;
+  --accent-soft: #fcd08a;
+  --accent-wash: #fdf1dc;
+
+  /* Utility */
+  --line: rgb(42 33 53 / 0.12);
+  --line-strong: rgb(42 33 53 / 0.22);
+  --grain-opacity: 0.5;
+  --edge-fill: #f6f2ea;
+
+  /* Paper lift — a sheet resting on the sheet below it */
+  --lift-sm: 0 1px 1px rgb(42 33 53 / 0.05), 0 2px 4px rgb(42 33 53 / 0.06);
+  --lift-md: 0 1px 2px rgb(42 33 53 / 0.06), 0 6px 14px rgb(42 33 53 / 0.09);
+  --lift-lg: 0 2px 4px rgb(42 33 53 / 0.07), 0 16px 34px rgb(42 33 53 / 0.13);
+  --lift-brand: 0 6px 20px rgb(95 60 167 / 0.24);
+  --lift-accent: 0 6px 20px rgb(217 141 20 / 0.28);
+}
+
+.dark {
+  --paper: #17131f;
+  --paper-raised: #231c30;
+  --paper-sunken: #100d16;
+  --paper-tint: #1e1829;
+
+  --ink: #f3eefa;
+  --ink-soft: #bdb2ce;
+  --ink-faint: #8b7fa0;
+  --ink-inverse: #17131f;
+
+  --brand: #a482e8;
+  --brand-deep: #8a63dd;
+  --brand-soft: #6b4fa0;
+  --brand-wash: #2b2140;
+
+  /* Kept dark so white text on these bands stays legible at night. */
+  --brand-surface: #2e2150;
+  --brand-surface-deep: #221839;
+
+  --on-brand: #1b1327;
+
+  --accent: #ffbc55;
+  --accent-deep: #faac37;
+  --accent-soft: #7a5a1f;
+  --accent-wash: #33280f;
+
+  --line: rgb(243 238 250 / 0.14);
+  --line-strong: rgb(243 238 250 / 0.26);
+  --grain-opacity: 0.28;
+  --edge-fill: #17131f;
+
+  --lift-sm: 0 1px 1px rgb(0 0 0 / 0.3), 0 2px 4px rgb(0 0 0 / 0.35);
+  --lift-md: 0 1px 2px rgb(0 0 0 / 0.35), 0 6px 14px rgb(0 0 0 / 0.45);
+  --lift-lg: 0 2px 4px rgb(0 0 0 / 0.4), 0 16px 34px rgb(0 0 0 / 0.55);
+  --lift-brand: 0 6px 20px rgb(95 60 167 / 0.45);
+  --lift-accent: 0 6px 20px rgb(250 172 55 / 0.22);
+}
+
+/* Expose the tokens to Tailwind's utility generator. */
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-raised: var(--paper-raised);
+  --color-paper-sunken: var(--paper-sunken);
+  --color-paper-tint: var(--paper-tint);
+
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-ink-inverse: var(--ink-inverse);
+
+  --color-brand: var(--brand);
+  --color-brand-deep: var(--brand-deep);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-wash: var(--brand-wash);
+  --color-brand-surface: var(--brand-surface);
+  --color-brand-surface-deep: var(--brand-surface-deep);
+  --color-on-brand: var(--on-brand);
+
+  --color-accent: var(--accent);
+  --color-accent-deep: var(--accent-deep);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-wash: var(--accent-wash);
+
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+
+  --font-display: var(--font-fredoka), ui-rounded, "Segoe UI", system-ui, sans-serif;
+  --font-sans: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
+  --font-hand: var(--font-caveat), "Segoe Script", cursive;
+
+  --shadow-lift-sm: var(--lift-sm);
+  --shadow-lift-md: var(--lift-md);
+  --shadow-lift-lg: var(--lift-lg);
+  --shadow-lift-brand: var(--lift-brand);
+  --shadow-lift-accent: var(--lift-accent);
+
+  --radius-sheet: 0.875rem;
+  --radius-card: 1.25rem;
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-sway: sway 5s ease-in-out infinite;
+  --animate-drift: drift 22s linear infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-1.6deg); }
+  50% { transform: rotate(1.6deg); }
+}
+
+@keyframes drift {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+@layer base {
+  * {
+    border-color: var(--line);
+  }
+
+  html {
+    /*
+     * No `scroll-behavior: smooth` — Lenis owns smooth scrolling (see
+     * `components/providers/smooth-scroll.tsx`) and native smooth scrolling
+     * fights it for the scroll position. `scroll-padding-top` still applies to
+     * the cases Lenis does not drive, such as focus and browser find.
+     */
+    scroll-padding-top: 6.5rem;
+    color-scheme: light;
+  }
+
+  .dark html,
+  html.dark {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: var(--accent);
+    color: #2a2135;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--brand);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .dark :focus-visible {
+    outline-color: var(--accent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ==========================================================================
+   Paper primitives
+   ========================================================================== */
+
+@layer components {
+  /*
+   * Fibrous grain overlaid on every paper surface. A single fractal-noise SVG
+   * data URI keeps this to zero network requests and zero layout cost.
+   */
+  .paper-grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: var(--grain-opacity);
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.32'/%3E%3C/svg%3E");
+  }
+
+  .dark .paper-grain::before {
+    mix-blend-mode: screen;
+  }
+
+  /* A sheet of paper: raised stock, hairline edge, soft lift. */
+  .sheet {
+    position: relative;
+    background-color: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    box-shadow: var(--lift-md);
+  }
+
+  /* The folded-corner treatment used on portfolio and blog cards. */
+  .sheet-fold::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-bottom-right-radius: var(--radius-card);
+    background: linear-gradient(
+      315deg,
+      var(--paper) 0 50%,
+      var(--line-strong) 50% calc(50% + 1px),
+      transparent calc(50% + 1px)
+    );
+  }
+
+  /* Strip of masking tape, used to pin photos and notes to the page. */
+  .tape {
+    position: absolute;
+    width: 6.5rem;
+    height: 1.75rem;
+    background: color-mix(in srgb, var(--accent) 62%, transparent);
+    box-shadow: var(--lift-sm);
+    /* Torn, slightly ragged short edges. */
+    clip-path: polygon(
+      3% 0%, 97% 4%, 100% 22%, 96% 48%, 99% 76%, 95% 100%,
+      5% 96%, 1% 74%, 4% 50%, 0% 26%
+    );
+  }
+
+  /* Ruled-notebook backdrop for long-form copy (blog body, job descriptions). */
+  .ruled {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(1.75rem - 1px),
+      var(--line) calc(1.75rem - 1px),
+      var(--line) 1.75rem
+    );
+    background-position: 0 0.5rem;
+  }
+
+  /* Oversized ghost word sitting behind a section, as in the theme mockup. */
+  .watermark {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--brand);
+    opacity: 0.09;
+    line-height: 0.8;
+    user-select: none;
+    pointer-events: none;
+    text-transform: uppercase;
+  }
+
+  /* Uppercase, wide-tracked label — the mockup's small-caps caption style. */
+  .eyebrow {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--brand);
+  }
+
+  /*
+   * Hand-drawn marker underline beneath an emphasised word. Sized in `em` so it
+   * scales with the heading, and sat below the baseline rather than through it —
+   * a highlighter stroke reads as a mistake at display sizes.
+   */
+  .marker-underline {
+    background-image: linear-gradient(
+      to right,
+      color-mix(in srgb, var(--accent) 78%, transparent),
+      color-mix(in srgb, var(--accent) 78%, transparent)
+    );
+    background-repeat: no-repeat;
+    background-size: 100% 0.16em;
+    background-position: 0 1.02em;
+    padding-bottom: 0.12em;
+  }
+
+  /* Reveal-on-scroll, wired up by useReveal(). */
+  .reveal {
+    opacity: 0;
+    transform: translateY(1.5rem);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .reveal[data-revealed="true"] {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Card that flips front-to-back — the "CALL ME CEO" playing cards. */
+  .flip-scene {
+    perspective: 1400px;
+  }
+
+  .flip-inner {
+    position: relative;
+    transition: transform 0.9s cubic-bezier(0.4, 0.1, 0.2, 1);
+    transform-style: preserve-3d;
+  }
+
+  .flip-scene[data-flipped="true"] .flip-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flip-face {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .flip-face-back {
+    position: absolute;
+    inset: 0;
+    transform: rotateY(180deg);
+  }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+
+  /* Hide a horizontal scroller's scrollbar without disabling the scroll. */
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+}
