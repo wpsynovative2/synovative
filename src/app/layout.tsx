@@ -3,6 +3,7 @@ import { Caveat, Fredoka, Nunito } from "next/font/google";
 import { site } from "@/content/site";
 import { SITE_URL } from "@/lib/seo/metadata";
 import { themeInitScript } from "@/components/layout/theme-toggle";
+import { preloaderInitScript } from "@/components/layout/site-preloader";
 import "./globals.css";
 
 /**
@@ -78,6 +79,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
          * would render light and then snap to dark on hydration.
          */}
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        {/* Skips the full-screen preloader on repeat loads in the same session. */}
+        <script dangerouslySetInnerHTML={{ __html: preloaderInitScript }} />
       </head>
       <body className="flex min-h-full flex-col bg-paper text-ink">{children}</body>
     </html>

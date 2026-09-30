@@ -52,12 +52,12 @@ export function getLenis() {
  */
 export function scrollToSection(
   target: string | HTMLElement,
-  options: { offset?: number; duration?: number } = {},
+  options: { offset?: number; duration?: number; immediate?: boolean } = {},
 ) {
-  const { offset = NAV_OFFSET, duration } = options;
+  const { offset = NAV_OFFSET, duration, immediate } = options;
 
   if (lenis) {
-    lenis.scrollTo(target, { offset, duration });
+    lenis.scrollTo(target, { offset, duration, immediate });
     return;
   }
 

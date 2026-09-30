@@ -394,3 +394,8 @@
   .no-scrollbar { scrollbar-width: none; }
   .no-scrollbar::-webkit-scrollbar { display: none; }
 }
+
+/* Repeat loads in a session skip the full-screen preloader (see site-preloader.tsx). */
+html[data-preloaded] #site-preloader {
+  display: none;
+}
