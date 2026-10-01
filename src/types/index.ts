@@ -24,7 +24,7 @@ export type ProjectCategory =
 /** A block of copy inside a service page, rendered as a paper sheet. */
 export interface ServiceSection {
   title: string;
-  body: string;
+  body?: string;
   bullets?: string[];
 }
 
@@ -32,6 +32,8 @@ export interface ServiceSection {
 export interface Service {
   slug: ServiceSlug;
   name: string;
+  /** Heading on the service's own page, when it differs from `name`. */
+  pageTitle?: string;
   /** Two-line label used on the hanging tags in the services strip. */
   tagLabel: string;
   tagline: string;
@@ -44,11 +46,23 @@ export interface Service {
     heading: string;
     subheading: string;
     image?: string;
+    /** Hero button label, when it differs from `cta.label`. */
+    ctaLabel?: string;
+  };
+  /** Handwritten sticky note beside the deliverables. */
+  note?: string;
+  /** Per-service overrides for the section headings on the service page. */
+  headings?: {
+    includes?: string;
+    process?: string;
+    work?: string;
+    workDescription?: string;
   };
   sections: ServiceSection[];
   /** Bullet-per-deliverable list shown as a torn-paper checklist. */
   deliverables: string[];
   cta: {
+    eyebrow?: string;
     heading: string;
     body: string;
     label: string;

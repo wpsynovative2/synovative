@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { aboutCopy, site } from "@/content/site";
+import { homeCopy, site } from "@/content/site";
 import { services } from "@/content/services";
 import {
   fetchFeaturedProjects,
@@ -57,24 +57,19 @@ export default async function HomePage() {
           <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16">
             <div>
               <SectionHeading
-                eyebrow="Who we are"
+                eyebrow={homeCopy.about.eyebrow}
                 watermark="About"
-                title={
-                  <>
-                    One studio. <span className="text-brand">Every part</span>{" "}
-                    of the story.
-                  </>
-                }
-                description={aboutCopy.short}
+                title={homeCopy.about.title}
+                description={homeCopy.about.body}
               />
 
               <div className="mt-8 flex flex-wrap gap-3">
                 <ButtonLink href="/about" variant="outline">
-                  More about us
+                  Know Us More
                   <ArrowRight className="h-4 w-4" />
                 </ButtonLink>
                 <ButtonLink href="/portfolio" variant="ghost">
-                  See the work
+                  See The Proof
                 </ButtonLink>
               </div>
             </div>
@@ -113,11 +108,11 @@ export default async function HomePage() {
       >
         <Container className="py-28 sm:py-32">
           <SectionHeading
-            eyebrow="What we do"
+            eyebrow={homeCopy.services.eyebrow}
             watermark="Services"
             align="center"
-            title="Five things, done properly"
-            description="Pick one, or hand us the whole brand. Either way the same team plans it, makes it and reports on it."
+            title={homeCopy.services.title}
+            description={homeCopy.services.description}
             className="mb-16"
           />
 
@@ -125,7 +120,7 @@ export default async function HomePage() {
 
           <div className="mt-16 flex justify-center">
             <ButtonLink href="/services" variant="outline">
-              All services in detail
+              Go on, see more
               <ArrowRight className="h-4 w-4" />
             </ButtonLink>
           </div>

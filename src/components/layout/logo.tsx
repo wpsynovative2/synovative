@@ -15,8 +15,14 @@ export function Logo({
   plate = true,
   priority = false,
   width = 140,
+  tone = "auto",
 }: {
   className?: string;
+  /**
+   * `auto` follows the site theme; `dark` always uses the white logo, for
+   * surfaces that are dark in both themes (the footer).
+   */
+  tone?: "auto" | "dark";
   /** Pad the mark so it has room to breathe in the navbar. */
   plate?: boolean;
   /** Set on the navbar, where the logo is part of the largest paint. */
@@ -39,22 +45,24 @@ export function Logo({
         className,
       )}
     >
-      <Image
-        src="/icons/synovative-logo-light.png"
-        alt={alt}
-        width={1020}
-        height={202}
-        priority={priority}
-        className="dark:hidden"
-        style={style}
-      />
+      {tone === "auto" && (
+        <Image
+          src="/icons/synovative-logo-light.png"
+          alt={alt}
+          width={1020}
+          height={202}
+          priority={priority}
+          className="dark:hidden"
+          style={style}
+        />
+      )}
       <Image
         src="/icons/synovative-logo-dark.png"
         alt={alt}
         width={1400}
         height={276}
         priority={priority}
-        className="hidden dark:block"
+        className={tone === "auto" ? "hidden dark:block" : undefined}
         style={style}
       />
     </Link>

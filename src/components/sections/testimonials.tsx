@@ -4,6 +4,7 @@ import { Container, SectionHeading, Sheet, Tape } from "@/components/paper/primi
 import { PaperSection } from "@/components/paper/torn-edge";
 import { Reveal } from "@/components/paper/reveal";
 import { cn } from "@/lib/utils";
+import { homeCopy } from "@/content/site";
 import type { Testimonial } from "@/types";
 
 function Stars({ rating }: { rating: number }) {
@@ -31,21 +32,15 @@ export function TestimonialsSection({
 }) {
   if (testimonials.length === 0) return null;
 
-  const fromGoogle = testimonials.some((item) => item.source === "google");
-
   return (
     <PaperSection tone="tint" tearBottom={tearBottom}>
       <Container className="py-24 sm:py-28">
         <SectionHeading
-          eyebrow="Kind words"
+          eyebrow={homeCopy.testimonials.eyebrow}
           watermark="Reviews"
           align="center"
-          title="What clients actually say"
-          description={
-            fromGoogle
-              ? "Pulled from our Google Business Profile — unedited, including the ones that made us wince."
-              : "A few words from the people we work with."
-          }
+          title={homeCopy.testimonials.title}
+          description={homeCopy.testimonials.description}
           className="mb-14"
         />
 

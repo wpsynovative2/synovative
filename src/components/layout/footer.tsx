@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { services } from "@/content/services";
-import { site } from "@/content/site";
+import { footerCopy, site } from "@/content/site";
 import { Container, PaperPlane } from "@/components/paper/primitives";
 import { TornEdge } from "@/components/paper/torn-edge";
 import { Logo } from "./logo";
@@ -28,11 +28,11 @@ export function Footer() {
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1.3fr]">
           {/* Identity */}
           <div>
-            <Logo />
+            <Logo tone="dark" />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/70">
-              A 360° digital marketing studio. Strategy, film, design, media and
-              development under one roof — so your brand sounds like one company
-              everywhere it shows up.
+              <span className="font-semibold text-white/85">{footerCopy.title}</span>
+              <br />
+              {footerCopy.body}
             </p>
 
             <ul className="mt-6 flex gap-2.5">
@@ -108,8 +108,6 @@ export function Footer() {
                   {site.address.street}
                   <br />
                   {site.address.locality}, {site.address.region} {site.address.postalCode}
-                  <br />
-                  {site.address.countryName}
                 </address>
               </li>
               <li className="flex gap-3">
@@ -139,7 +137,7 @@ export function Footer() {
             © {year} {site.legalName}. All rights reserved.
           </p>
           <p className="font-hand text-base text-white/70">
-            Made by hand, measured by numbers.
+            {footerCopy.signoff}
           </p>
         </div>
       </Container>

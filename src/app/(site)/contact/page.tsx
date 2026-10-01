@@ -1,5 +1,5 @@
 import { ExternalLink } from "lucide-react";
-import { faqs, site } from "@/content/site";
+import { contactPageCopy, faqs, fullAddress, site } from "@/content/site";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema, faqSchema } from "@/lib/seo/schema";
 import { Container, SectionHeading, Sheet } from "@/components/paper/primitives";
@@ -15,7 +15,7 @@ export const metadata = buildMetadata({
   path: "/contact",
   keywords: [
     "contact digital marketing agency",
-    "marketing agency Mira Road",
+    "marketing agency Vasai West",
     "synovative contact",
   ],
 });
@@ -34,15 +34,10 @@ export default function ContactPage() {
       />
 
       <PageHero
-        eyebrow="Contact"
+        eyebrow={contactPageCopy.eyebrow}
         watermark="Say hello"
-        title={
-          <>
-            Let&apos;s start with a{" "}
-            <span className="marker-underline text-brand">conversation.</span>
-          </>
-        }
-        description="No discovery-call funnel, no automated sequence. You write, a person from the team writes back — usually the person who would run the work."
+        title={contactPageCopy.title}
+        description={contactPageCopy.intro}
       />
 
       <ContactBlock tone="paper" />
@@ -51,11 +46,11 @@ export default function ContactPage() {
       <PaperSection tone="sunken" tearTop="var(--paper)">
         <Container className="py-24 sm:py-28">
           <SectionHeading
-            eyebrow="Find us"
+            eyebrow={contactPageCopy.findUs.eyebrow}
             watermark="Studio"
             align="center"
-            title="Come by the studio"
-            description={`${site.address.street}, ${site.address.locality}, ${site.address.region} ${site.address.postalCode}`}
+            title={contactPageCopy.findUs.title}
+            description={fullAddress}
             className="mb-12"
           />
 
@@ -90,11 +85,11 @@ export default function ContactPage() {
       <PaperSection tone="paper" tearTop="var(--paper-sunken)">
         <Container size="narrow" className="py-24 sm:py-28">
           <SectionHeading
-            eyebrow="Before you write"
+            eyebrow={contactPageCopy.faq.eyebrow}
             watermark="FAQ"
             align="center"
-            title="Questions we get asked a lot"
-            description="Answered plainly, including the ones about money."
+            title={contactPageCopy.faq.title}
+            description={contactPageCopy.faq.description}
             className="mb-12"
           />
 

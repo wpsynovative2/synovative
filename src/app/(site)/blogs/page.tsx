@@ -1,3 +1,4 @@
+import { blogsCopy } from "@/content/site";
 import { fetchPosts } from "@/lib/firebase/collections";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema } from "@/lib/seo/schema";
@@ -36,15 +37,10 @@ export default async function BlogsPage() {
       />
 
       <PageHero
-        eyebrow="From the desk"
+        eyebrow={blogsCopy.eyebrow}
         watermark="Journal"
-        title={
-          <>
-            Notes from the{" "}
-            <span className="marker-underline text-brand">studio floor.</span>
-          </>
-        }
-        description="What worked, what did not, and what we changed as a result. Roughly twice a month, and only when there is something worth saying."
+        title={blogsCopy.title}
+        description={blogsCopy.intro}
       />
 
       <PaperSection tone="paper">
@@ -84,10 +80,10 @@ export default async function BlogsPage() {
 
       <CtaBand
         tearTop="var(--paper)"
-        eyebrow="Enjoyed the reading?"
-        heading="We'd rather do this for your brand than write about it."
-        body="Tell us what you're working on and we'll come back with a straight answer about whether we can help."
-        label="Start a project"
+        eyebrow={blogsCopy.cta.eyebrow}
+        heading={blogsCopy.cta.heading}
+        body={blogsCopy.cta.body}
+        label={blogsCopy.cta.label}
       />
     </>
   );

@@ -17,7 +17,6 @@ import { PageHero } from "@/components/sections/page-hero";
 import { ApplicationForm } from "@/components/forms/application-form";
 import { JsonLd } from "@/components/seo/json-ld";
 import { ButtonLink } from "@/components/ui/button";
-import { Icon } from "@/components/ui/icon";
 import type { JobPosting } from "@/types";
 
 export const metadata = buildMetadata({
@@ -65,16 +64,16 @@ export default async function CareerPage() {
       />
 
       <PageHero
-        eyebrow="Careers"
+        eyebrow={careersCopy.eyebrow}
         watermark="Join us"
         title={careersCopy.heading}
         description={careersCopy.intro}
       >
         <ButtonLink href="#openings" size="lg">
-          See {jobs.length} open role{jobs.length === 1 ? "" : "s"}
+          See Open Roles
         </ButtonLink>
         <ButtonLink href="#apply" variant="paper" size="lg">
-          Open application
+          Send Your CV
         </ButtonLink>
       </PageHero>
 
@@ -82,7 +81,7 @@ export default async function CareerPage() {
       <PaperSection tone="paper">
         <Container className="py-20 sm:py-24">
           <SectionHeading
-            eyebrow="Why here"
+            eyebrow="Why Here"
             watermark="Studio"
             align="center"
             title="What working here is actually like"
@@ -93,10 +92,10 @@ export default async function CareerPage() {
             {careersCopy.perks.map((perk, index) => (
               <Reveal as="li" key={perk.title} delay={index * 90}>
                 <Sheet tiltSeed={perk.title} maxTilt={1.8} className="h-full p-6">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-wash text-accent-deep">
-                    <Icon name={perk.icon} className="h-5 w-5" strokeWidth={2.2} />
+                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-wash font-display text-lg font-bold text-accent-deep">
+                    {String(index + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="mt-4 font-display text-lg font-semibold text-ink">
+                  <h3 className="mt-4 font-display text-base font-semibold tracking-wide text-ink">
                     {perk.title}
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-ink-soft">{perk.body}</p>
@@ -111,18 +110,10 @@ export default async function CareerPage() {
       <PaperSection id="openings" tone="tint" tearTop="var(--paper)" tearBottom="var(--paper)">
         <Container className="scroll-mt-28 py-24 sm:py-28">
           <SectionHeading
-            eyebrow="Open roles"
+            eyebrow={careersCopy.openings.eyebrow}
             watermark="Hiring"
-            title={
-              jobs.length > 0
-                ? `${jobs.length} position${jobs.length === 1 ? "" : "s"} open right now`
-                : "No open positions at the moment"
-            }
-            description={
-              jobs.length > 0
-                ? "Every role reports to someone who does the same work. Read the whole card before you apply — we wrote them honestly."
-                : "Nothing open today, but we always read open applications. Send one below and we'll keep it on file."
-            }
+            title={careersCopy.openings.title}
+            description={careersCopy.openings.description}
             className="mb-14"
           />
 
@@ -204,21 +195,21 @@ export default async function CareerPage() {
           <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
             <div>
               <SectionHeading
-                eyebrow="Apply"
+                eyebrow={careersCopy.apply.eyebrow}
                 watermark="You"
-                title="Send us your work"
+                title={careersCopy.apply.title}
               />
-              <p className="mt-5 leading-relaxed text-ink-soft">
-                We read every application and reply either way, usually within a
-                week. A link to something you made counts for far more than a
-                well-formatted CV.
-              </p>
+              <p className="mt-5 leading-relaxed text-ink-soft">{careersCopy.apply.body}</p>
 
-              <StickyNote tone="brand" tiltSeed="career-note" className="mt-9 max-w-xs">
-                <p className="font-hand text-xl leading-snug">
-                  No role that fits? Send an open application anyway. Two of our
-                  team joined that way.
-                </p>
+              <StickyNote tone="brand" tiltSeed="career-note" className="mt-9 max-w-xs space-y-3">
+                {careersCopy.apply.note.map((line) => (
+                  <p key={line.label} className="font-hand text-xl leading-snug">
+                    <span className="block font-display text-xs font-semibold tracking-[0.18em]">
+                      {line.label}
+                    </span>
+                    {line.text}
+                  </p>
+                ))}
               </StickyNote>
 
               <p className="mt-8 text-sm text-ink-soft">

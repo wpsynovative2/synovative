@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-import { aboutCopy, site } from "@/content/site";
+import { portfolioCopy, site } from "@/content/site";
 import { projectCategories } from "@/content/projects";
 import { fetchProjects } from "@/lib/firebase/collections";
 import { cloudinaryUrl } from "@/lib/cloudinary";
@@ -63,15 +63,10 @@ export default async function PortfolioPage() {
       />
 
       <PageHero
-        eyebrow="Selected work"
+        eyebrow={portfolioCopy.eyebrow}
         watermark="Portfolio"
-        title={
-          <>
-            Work we&apos;d happily{" "}
-            <span className="marker-underline text-brand">show our mothers.</span>
-          </>
-        }
-        description={`${projects.length} projects across launch campaigns, identity systems, property films and the sites that carry them.`}
+        title={portfolioCopy.title}
+        description={portfolioCopy.intro}
       >
         {/* In-page jumps double as a category filter without any client JS. */}
         {grouped.map((group) => (
@@ -114,18 +109,18 @@ export default async function PortfolioPage() {
           <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16">
             <div>
               <SectionHeading
-                eyebrow="Who made these"
+                eyebrow={portfolioCopy.team.eyebrow}
                 watermark="Studio"
-                title="Everything above came out of one room"
-                description={aboutCopy.short}
+                title={portfolioCopy.team.title}
+                description={portfolioCopy.team.description}
               />
               <div className="mt-8 flex flex-wrap gap-3">
                 <ButtonLink href="/about" variant="outline">
-                  About the studio
+                  Meet Synovative
                   <ArrowRight className="h-4 w-4" />
                 </ButtonLink>
                 <ButtonLink href="/services" variant="ghost">
-                  What we do
+                  What We Do
                 </ButtonLink>
               </div>
             </div>

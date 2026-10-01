@@ -23,6 +23,13 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { ButtonLink } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 
+/** Renders `*text*` in a heading as italics. */
+function withEmphasis(text: string) {
+  return text
+    .split(/\*(.+?)\*/)
+    .map((part, index) => (index % 2 === 1 ? <em key={index}>{part}</em> : part));
+}
+
 /** All five services are known at build time, so every page is prerendered. */
 export function generateStaticParams() {
   return services.map((service) => ({ service: service.slug }));
@@ -67,13 +74,13 @@ export default async function ServicePage({ params }: PageProps<"/services/[serv
       />
 
       <PageHero
-        eyebrow={service.name}
+        eyebrow={service.pageTitle ?? service.name}
         watermark={service.tagline}
-        title={service.hero.heading}
+        title={withEmphasis(service.hero.heading)}
         description={service.hero.subheading}
       >
         <ButtonLink href="#enquiry" size="lg">
-          {service.cta.label}
+          {service.hero.ctaLabel ?? service.cta.label}
           <ArrowRight className="h-4 w-4" />
         </ButtonLink>
         <ButtonLink href="/portfolio" variant="paper" size="lg">
@@ -89,11 +96,16 @@ export default async function ServicePage({ params }: PageProps<"/services/[serv
               <SectionHeading
                 eyebrow="What you get"
                 watermark="Scope"
-                title={`Every ${service.name.toLowerCase()} engagement includes`}
+                title={
+                  service.headings?.includes ??
+                  `Every ${service.name.toLowerCase()} engagement includes`
+                }
               />
-              <StickyNote tone="brand" tiltSeed={`${service.slug}-note`} className="mt-9 max-w-xs">
-                <p className="font-hand text-xl leading-snug">{service.tagline}.</p>
-              </StickyNote>
+              {service.note && (
+                <StickyNote tone="brand" tiltSeed={`${service.slug}-note`} className="mt-9 max-w-xs">
+                  <p className="font-hand text-xl leading-snug">{service.note}</p>
+                </StickyNote>
+              )}
             </div>
 
             <ul className="grid gap-3 sm:grid-cols-2">
@@ -119,10 +131,33 @@ export default async function ServicePage({ params }: PageProps<"/services/[serv
             eyebrow="In detail"
             watermark="How"
             align="center"
-            title={`How ${service.name.toLowerCase()} works here`}
+            title={
+              service.headings?.process ?? `How ${service.name.toLowerCase()} works here`
+            }
             className="mb-16"
           />
 
+          {service.sections.every((section) => !section.body) ? (
+            // Steps with titles only read as a numbered grid, not full sheets.
+            <ol className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {service.sections.map((section, index) => (
+                <Reveal as="li" key={section.title} delay={index * 60}>
+                  <Sheet
+                    tiltSeed={section.title}
+                    maxTilt={0.8}
+                    className="flex h-full items-center gap-5 p-6"
+                  >
+                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand-wash font-display text-lg font-bold text-brand">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="font-display text-lg font-semibold text-ink sm:text-xl">
+                      {section.title}
+                    </h3>
+                  </Sheet>
+                </Reveal>
+              ))}
+            </ol>
+          ) : (
           <div className="space-y-7">
             {service.sections.map((section, index) => (
               <Reveal key={section.title} delay={index * 60}>
@@ -136,7 +171,9 @@ export default async function ServicePage({ params }: PageProps<"/services/[serv
                       <h3 className="font-display text-xl font-semibold text-ink sm:text-2xl">
                         {section.title}
                       </h3>
-                      <p className="mt-3 leading-relaxed text-ink-soft">{section.body}</p>
+                      {section.body && (
+                        <p className="mt-3 leading-relaxed text-ink-soft">{section.body}</p>
+                      )}
 
                       {section.bullets && (
                         <ul className="mt-5 grid gap-2.5 sm:grid-cols-2">
@@ -154,6 +191,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[serv
               </Reveal>
             ))}
           </div>
+          )}
         </Container>
       </PaperSection>
 
@@ -208,8 +246,11 @@ export default async function ServicePage({ params }: PageProps<"/services/[serv
               <SectionHeading
                 eyebrow="Featured work"
                 watermark="Work"
-                title={`${service.name} in the wild`}
-                description="Projects where this service did the heavy lifting."
+                title={service.headings?.work ?? `${service.name} in the wild`}
+                description={
+                  service.headings?.workDescription ??
+                  "Projects where this service did the heavy lifting."
+                }
               />
               <ButtonLink href="/portfolio" variant="paper" size="sm" className="shrink-0">
                 Full portfolio
@@ -232,7 +273,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[serv
       <PaperSection tone="sunken" tearTop="var(--paper)">
         <Container className="py-20">
           <SectionHeading
-            eyebrow="Also from the studio"
+            eyebrow="Also from us"
             align="center"
             title="The other four"
             className="mb-10"
@@ -261,7 +302,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[serv
       <CtaBand
         tone="accent"
         tearTop="var(--paper-sunken)"
-        eyebrow={service.name}
+        eyebrow={service.cta.eyebrow ?? service.name}
         heading={service.cta.heading}
         body={service.cta.body}
         label={service.cta.label}

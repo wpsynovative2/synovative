@@ -1,4 +1,4 @@
-import type { ProcessStep, TimelineEntry, Faq } from "@/types";
+import type { ProcessStep, Faq } from "@/types";
 
 /**
  * Single source of truth for company identity — used by the navbar, footer,
@@ -16,28 +16,33 @@ export const site = {
   founded: "2019",
 
   contact: {
-    phone: "+91 98209 83315",
-    phoneHref: "+919820983315",
-    altPhone: "+91 98197 24958",
+    phone: "096734 39102",
+    phoneHref: "+919673439102",
     email: "hello@synovative.com",
     careersEmail: "careers@synovative.com",
   },
 
   address: {
-    street: "Office No. 204, Business Hub",
-    locality: "Mira Road",
+    street: "Jain Tower, Office No. 26-27 C -Wing Prabhadevi, Anand Nagar",
+    locality: "Vasai West, Mumbai",
     region: "Maharashtra",
-    postalCode: "401107",
+    postalCode: "401202",
     country: "IN",
     countryName: "India",
   },
 
-  geo: { latitude: 19.2813, longitude: 72.8686 },
+  geo: { latitude: 19.3667, longitude: 72.8167 },
 
-  /** Used by the LocalBusiness schema and the contact page. */
+  /** Shown wherever opening hours are displayed. */
+  hoursLabel: "Mon-Sat, 10:00 - 7:00",
+
+  /** Used by the LocalBusiness schema. */
   openingHours: [
-    { days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "10:00", closes: "19:00" },
-    { days: ["Saturday"], opens: "10:00", closes: "16:00" },
+    {
+      days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      opens: "10:00",
+      closes: "19:00",
+    },
   ],
 
   socials: [
@@ -49,25 +54,76 @@ export const site = {
 
   /** Embedded on the contact page. */
   mapEmbedUrl:
-    "https://www.google.com/maps?q=Mira+Road+Maharashtra+India&output=embed",
-  mapLinkUrl: "https://www.google.com/maps/search/?api=1&query=Mira+Road+Maharashtra+India",
+    "https://www.google.com/maps?q=Jain+Tower+Anand+Nagar+Vasai+West+Maharashtra+401202&output=embed",
+  mapLinkUrl:
+    "https://www.google.com/maps/search/?api=1&query=Jain+Tower+Anand+Nagar+Vasai+West+Maharashtra+401202",
 
   stats: [
-    { value: "6+", label: "Years in business" },
-    { value: "180+", label: "Projects delivered" },
-    { value: "60+", label: "Happy clients" },
-    { value: "12M+", label: "Impressions driven" },
+    { value: "8+", label: "Years of Synovating" },
+    { value: "100+", label: "Happy Clients" },
+    { value: "500+", label: "Projects Delivered" },
+    { value: "500M+", label: "Impressions Driven" },
   ],
 } as const;
 
+/** The full address on one line, as printed in the contact details. */
+export const fullAddress = `${site.address.street}, ${site.address.locality}, ${site.address.region} ${site.address.postalCode}`;
+
+export const homeCopy = {
+  about: {
+    eyebrow: "Who We Are",
+    title: "You’ve reached HOME. Good place to start.",
+    body: "Real estate has always been our thing. Your end goal is “SOLD OUT.” Ours is getting you there. The big idea. The tiny detail. The thing that makes someone stop scrolling. The thing that gets them to enquire. We know about all of it.",
+  },
+  services: {
+    eyebrow: "What We Do",
+    title: "We break the fourth wall and tell the story",
+    description: "Whether you need one piece or the whole property package, we’re in",
+  },
+  testimonials: {
+    eyebrow: "Not To Brag, But…",
+    title: "No copywriter touched these.",
+    description:
+      "Straight from the people who’ve worked with us, including the ones who made us wince.",
+  },
+};
+
+export const contactCopy = {
+  eyebrow: "Get In Touch",
+  heading: "Got a project? A problem? A “hear me out” idea?",
+  description: "We’re listening. Fill in the form and we’ll take it from there.",
+  note: ["Prefer to skip the form? Call the agency.", "Your brief might meet its match."],
+  promise: "We reply within one working day. Promise.",
+};
+
+export const footerCopy = {
+  title: "A 360° real estate marketing agency.",
+  body: "From the first thought to the final click, we keep every part of your project's story in the same room.",
+  signoff: "Made by hand, measured by numbers.",
+};
+
 export const aboutCopy = {
-  short:
-    "We are a paper-and-pixels studio. Synovative brings together strategists, designers, film-makers and media buyers under one roof so a brand's story stays consistent from the first sketch to the last click.",
-  long: [
-    "Synovative started in 2019 with a single desk, a borrowed camera and a stubborn belief that marketing should feel handmade rather than mass-produced. Six years on we are a full 360° team, but the belief has not moved.",
-    "We work primarily with real-estate developers, hospitality brands and lifestyle businesses — categories where trust is earned slowly and lost quickly. That shapes how we work: research before creative, systems before campaigns, and numbers reported honestly whether or not they flatter us.",
-    "Everything lives under one roof. The team that writes the strategy also shoots the reel, designs the hoarding, builds the landing page and runs the ads against it. Nothing gets lost in a handover, because there isn't one.",
-  ],
+  title: "An agency that puts the story in storey.",
+  intro:
+    "We know real estate has more to it than square feet. We look beyond the elevation, the amenities, and the carpet area to find what makes a project worth talking about, then build the story around it.",
+  process: {
+    title: "How Synovative works",
+    description: "A brief tour of what happens before the first hoarding goes up.",
+  },
+  team: {
+    eyebrow: "The Team",
+    title: "A full deck",
+    description: "Hover or scroll a card to see the brains locked in Synovative.",
+  },
+  fluent: {
+    title: "We are fluent in real estate",
+    description: "No matter what you’re building, we know how to get you buyers",
+  },
+  cta: {
+    eyebrow: "Work with us",
+    heading: "Want this team on your brand?",
+    body: "Tell us what you’re launching. We’ll bring the ideas, the thinking, and hopefully fewer “luxury redefined”s.",
+  },
 };
 
 export const ceo = {
@@ -77,63 +133,100 @@ export const ceo = {
   // `cloudinaryUrl` means it falls back to the placeholder before media is
   // uploaded, rather than 404ing against `public/`.
   photo: "synovative/team/ceo",
-  quote: "Good marketing is not louder. It is more honest, more often.",
+  quote: "If you can’t explain the idea, the numbers, and the why, it’s not ready.",
   bio: [
-    "Rahul founded Synovative in 2019 after seven years running growth for real-estate developers across Mumbai. He still personally sits in on every brand kickoff.",
-    "His view is simple: a campaign that cannot explain its own numbers is decoration, not marketing. That standard runs through every retainer the studio takes on.",
+    "Founded Synovative in 2019.",
+    "Has a soft spot for good ideas and brutally honest reports. Keeps strategy, creativity, and performance in the same room.",
   ],
   highlights: [
-    "13+ years across brand and performance marketing",
-    "Led launch campaigns for 40+ residential projects",
-    "Built Synovative's in-house drone and film unit",
-    "Speaks regularly on real-estate brand storytelling",
-    "Personally reviews every monthly client report",
+    "500+ projects in 8+ years.",
+    "Countless campaigns.",
+    "Still joins brand kickoffs. Yes, all of them.",
+    "Personally reviews the work that goes out.",
   ],
+  signoff: "Occasionally says, “One more version?”",
 };
 
 export const processSteps: ProcessStep[] = [
   {
     step: 1,
-    title: "Listen",
-    body: "We start with your numbers, your market and your last three campaigns — the good and the bad.",
-    icon: "Ear",
+    title: "FIRST, WE LOOK AT THE PROJECT",
+    body: "The location. The product. The price. The view. The competition.",
+    icon: "Building2",
   },
   {
     step: 2,
-    title: "Sketch",
-    body: "Positioning, messaging and a creative territory, on paper, before a single asset is produced.",
-    icon: "PencilLine",
+    title: "THEN, WE LOOK AT THE BUYER",
+    body: "Tons of questions, gallons of tea to know the buyer.",
+    icon: "Users",
   },
   {
     step: 3,
-    title: "Make",
-    body: "Films, designs, sites and ad creative, produced in-house so the tone never drifts between channels.",
-    icon: "Scissors",
+    title: "THEN, WE FIND THE STORY",
+    body: "The idea that can travel from the hoarding to the brochure, from Instagram to the site visit.",
+    icon: "Lightbulb",
   },
   {
     step: 4,
-    title: "Launch",
-    body: "Media goes live in measured phases so we learn what works before the budget is committed.",
-    icon: "Rocket",
+    title: "THEN, WE MAKE THE THING",
+    body: "Campaigns, content, films, websites, ads, and everything else the project needs.",
+    icon: "Scissors",
   },
   {
     step: 5,
-    title: "Sharpen",
-    body: "Weekly reads, monthly reports, honest calls on what to cut and what to double down on.",
+    title: "THEN, WE LOOK AT THE NUMBERS.",
+    body: "Because a pretty campaign is nice. A campaign that moves enquiries is nicer.",
     icon: "TrendingUp",
   },
 ];
 
-export const timeline: TimelineEntry[] = [
-  { year: "2019", title: "The first desk", body: "Synovative opens with two people, one camera and three real-estate clients in Mira Road." },
-  { year: "2020", title: "Going remote, going digital", body: "Lockdown pushes site visits online. We build our first virtual property walkthroughs and never look back." },
-  { year: "2021", title: "The film unit", body: "Drone and editing brought fully in-house. Property films become our signature service." },
-  { year: "2022", title: "Performance desk opens", body: "A dedicated media buying team joins, closing the loop between creative and conversion." },
-  { year: "2023", title: "100 projects", body: "We cross a hundred delivered projects and move into a studio built for shooting and editing under one roof." },
-  { year: "2024", title: "Web & app practice", body: "Development team formed, so landing pages and micro-sites ship as fast as the campaigns that feed them." },
-  { year: "2025", title: "Beyond real estate", body: "Hospitality and lifestyle brands become a third of the book. The playbook travels well." },
-  { year: "2026", title: "The next sheet", body: "A studio of 30, still handmade, still measuring everything." },
+/** The property types on the About page's "fluent in real estate" grid. */
+export const realEstateTypes = [
+  { title: "HOMES", body: "Apartments, luxury homes, villas, second homes", icon: "Home" },
+  { title: "COMMERCIAL", body: "Offices, shops, showrooms, business spaces", icon: "Store" },
+  { title: "INDUSTRIAL", body: "Galas, sheds, warehouses, industrial estates", icon: "Factory" },
+  { title: "PLOTS", body: "Residential plots, NA plots, township plots", icon: "Map" },
+  { title: "TOWNSHIPS", body: "Large-scale and integrated developments", icon: "Building2" },
+  { title: "HOSPITALITY", body: "Hotels, resorts, holiday & managed residences", icon: "Hotel" },
 ];
+
+export const portfolioCopy = {
+  eyebrow: "Portfolio",
+  title: "Work we’d happily put on a billboard.",
+  intro:
+    "A growing collection of projects that made it out of the brainstorming sessions and into the real estate world.",
+  team: {
+    eyebrow: "Who made all that?",
+    title: "One team. Many tabs open.",
+    description:
+      "Strategists, writers, designers, filmmakers, and media minds who spend a suspicious amount of time asking, “But what makes this project different?”",
+  },
+};
+
+export const blogsCopy = {
+  eyebrow: "Blogs",
+  title: "Notes from people who stare at property all day",
+  intro:
+    "What we’re noticing across projects, markets, campaigns, buyers and the business of making real estate worth noticing.",
+  cta: {
+    eyebrow: "LIKE WHAT YOU READ?",
+    heading: "Good. Now give us a brief.",
+    body: "Tell us what you’re working on. We’ll tell you what we’d do with it.",
+    label: "Start a project",
+  },
+};
+
+export const contactPageCopy = {
+  eyebrow: "Contact",
+  title: "Your project. Our two cents.",
+  intro: "Send us the brief. The floor plan. The half-baked idea. We’ll take it from there.",
+  findUs: { eyebrow: "Find Us", title: "Come by. We’ll put the kettle on." },
+  faq: {
+    eyebrow: "Before you write",
+    title: "Questions we get asked a lot",
+    description: "Answered plainly. No jargon, no mysterious agency language.",
+  },
+};
 
 export const faqs: Faq[] = [
   {
@@ -174,13 +267,40 @@ export const faqs: Faq[] = [
 ];
 
 export const careersCopy = {
-  heading: "Come make things by hand.",
+  eyebrow: "Career",
+  heading: "Bring your ideas to the site.",
   intro:
-    "Synovative is a studio, not a factory. Small teams, real ownership, and work that ships instead of sitting in a deck. If you would rather cut and paste actual paper than slide number 47, you will fit in here.",
+    "If you’ve got a head full of ideas and a healthy dislike for average, there’s probably a spot for you here.",
   perks: [
-    { title: "Own the work", body: "You present your own work to the client. No layers, no ghost-writing.", icon: "Hand" },
-    { title: "Kit that keeps up", body: "Current cameras, drones, licences and machines. We do not make you fight your tools.", icon: "Camera" },
-    { title: "Learn on the clock", body: "A yearly budget for courses and conferences, plus Friday craft sessions.", icon: "GraduationCap" },
-    { title: "Real hours", body: "Ten to seven, alternate Saturdays off, and crunch treated as a planning failure.", icon: "Clock" },
+    {
+      title: "GOOD IDEAS GET HEARD",
+      body: "We always appreciate the best thought in the room, whether it comes from the intern or the person running the room.",
+    },
+    {
+      title: "BRING YOUR “WHAT IF?”",
+      body: "We like people who can look at the obvious answer and wonder if there’s a better one.",
+    },
+    {
+      title: "YOUR WORK GETS OUT",
+      body: "Campaigns launch. Films go live. Websites get visited. The work actually goes somewhere.",
+    },
+    {
+      title: "HOURS YOU ENJOY",
+      body: "Because good ideas come easier when you’re having a good time.",
+    },
   ],
+  openings: {
+    eyebrow: "Open Roles",
+    title: "Come be part of the plot.",
+    description: "Your next career move has a floor plan; consider this your site visit.",
+  },
+  apply: {
+    eyebrow: "Apply",
+    title: "Show us what you’ve got.",
+    body: "A portfolio, a project, a campaign, a particularly good piece of work. We’ll take a look at anything that shows us how you think.",
+    note: [
+      { label: "FOUND YOUR ROLE?", text: "Go for it." },
+      { label: "DIDN’T?", text: "Send us your work anyway. We’ll figure it out." },
+    ],
+  },
 };

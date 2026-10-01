@@ -2,11 +2,11 @@ import type { Project, ProjectCategory } from "@/types";
 
 /** Category labels and ordering for the portfolio filter bar. */
 export const projectCategories: { slug: ProjectCategory; label: string }[] = [
-  { slug: "featured-posts", label: "Featured Posts" },
-  { slug: "featured-videos", label: "Featured Videos" },
-  { slug: "featured-websites", label: "Featured Websites" },
+  { slug: "featured-videos", label: "Campaigns" },
+  { slug: "featured-posts", label: "Digital" },
+  { slug: "featured-websites", label: "Websites" },
   { slug: "branding", label: "Branding" },
-  { slug: "other-projects", label: "Other Projects" },
+  { slug: "other-projects", label: "Other Work" },
 ];
 
 export const categoryLabels = Object.fromEntries(

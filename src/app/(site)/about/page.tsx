@@ -1,16 +1,14 @@
 import Image from "next/image";
-import { aboutCopy, ceo, processSteps, site, timeline } from "@/content/site";
+import { aboutCopy, ceo, processSteps, realEstateTypes } from "@/content/site";
 import { team } from "@/content/team";
 import { cloudinaryUrl } from "@/lib/cloudinary";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema } from "@/lib/seo/schema";
 import {
   Container,
-  DoodleStar,
   PaperPlane,
   SectionHeading,
   Sheet,
-  StickyNote,
   Tape,
 } from "@/components/paper/primitives";
 import { PaperSection } from "@/components/paper/torn-edge";
@@ -24,7 +22,7 @@ import { Icon } from "@/components/ui/icon";
 export const metadata = buildMetadata({
   title: "About Us",
   description:
-    "Synovative is a 360° digital marketing studio founded in 2019. Meet the team, the working process and the timeline that got us here.",
+    "Synovative is a 360° real estate marketing agency founded in 2019. Meet the team, see how we work, and the kinds of projects we market.",
   path: "/about",
   keywords: ["about synovative", "digital marketing agency team", "marketing studio Mumbai"],
 });
@@ -40,64 +38,43 @@ export default function AboutPage() {
       />
 
       <PageHero
-        eyebrow="About us"
+        eyebrow="About"
         watermark="Since 2019"
-        title={
-          <>
-            A studio that still{" "}
-            <span className="marker-underline text-brand">cuts its own paper.</span>
-          </>
-        }
-        description={aboutCopy.short}
+        title={aboutCopy.title}
+        description={aboutCopy.intro}
       />
 
-      {/* The long version */}
+      {/* How Synovative works */}
       <PaperSection tone="paper">
-        <Container className="py-24 sm:py-28">
-          <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
-            <div>
-              <SectionHeading
-                eyebrow="The long version"
-                watermark="Story"
-                title="How Synovative works"
-              />
-              <div className="mt-8 space-y-5 text-[1.02rem] leading-relaxed text-ink-soft">
-                {aboutCopy.long.map((paragraph) => (
-                  <p key={paragraph.slice(0, 32)}>{paragraph}</p>
-                ))}
-              </div>
-            </div>
+        <Container className="relative py-24 sm:py-28">
+          <PaperPlane className="top-16 right-0 hidden h-14 w-24 lg:block" />
+          <SectionHeading
+            eyebrow="How we work"
+            watermark="Process"
+            align="center"
+            title={aboutCopy.process.title}
+            description={aboutCopy.process.description}
+            className="mb-16"
+          />
 
-            <div className="relative">
-              <PaperPlane className="-top-8 right-0 hidden h-14 w-24 lg:block" />
-              <StickyNote tone="accent" tiltSeed="about-note-1" className="max-w-sm">
-                <p className="font-hand text-2xl leading-snug">
-                  &ldquo;Good marketing is not louder. It is more honest, more
-                  often.&rdquo;
-                </p>
-                <p className="mt-3 font-display text-xs font-semibold tracking-[0.18em] uppercase">
-                  — {ceo.name}, Founder
-                </p>
-              </StickyNote>
-
-              <Sheet tiltSeed="about-values" className="mt-10 p-7">
-                <p className="eyebrow mb-4">What we hold to</p>
-                <ul className="space-y-3.5">
-                  {[
-                    "Research before creative, always.",
-                    "One team from strategy to delivery — no handovers.",
-                    "Numbers reported honestly, flattering or not.",
-                    "Your ad account, your data, your assets.",
-                  ].map((value) => (
-                    <li key={value} className="flex gap-3 text-sm text-ink-soft">
-                      <DoodleStar className="mt-0.5 h-3.5 w-3.5 shrink-0" />
-                      {value}
-                    </li>
-                  ))}
-                </ul>
-              </Sheet>
-            </div>
-          </div>
+          <ol className="grid gap-6 sm:grid-cols-2 lg:grid-cols-5 lg:gap-4">
+            {processSteps.map((step, index) => (
+              <Reveal as="li" key={step.step} delay={index * 110}>
+                <Sheet tiltSeed={step.title} maxTilt={1.6} className="h-full p-6 text-center">
+                  <span className="relative mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-accent text-[#2a2135] shadow-lift-sm">
+                    <Icon name={step.icon} className="h-6 w-6" strokeWidth={2.2} />
+                    <span className="absolute -top-1.5 -right-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-brand font-display text-xs font-bold text-on-brand">
+                      {step.step}
+                    </span>
+                  </span>
+                  <h3 className="mt-5 font-display text-sm font-semibold tracking-wide text-ink">
+                    {step.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-ink-soft">{step.body}</p>
+                </Sheet>
+              </Reveal>
+            ))}
+          </ol>
         </Container>
       </PaperSection>
 
@@ -126,7 +103,7 @@ export default function AboutPage() {
 
             <div>
               <SectionHeading
-                eyebrow="Call me CEO"
+                eyebrow="Call Me CEO"
                 watermark="Founder"
                 title="The person who signs off on everything"
               />
@@ -149,6 +126,8 @@ export default function AboutPage() {
                   </li>
                 ))}
               </ul>
+
+              <p className="mt-7 font-hand text-xl text-brand">{ceo.signoff}</p>
             </div>
           </div>
         </Container>
@@ -158,11 +137,11 @@ export default function AboutPage() {
       <PaperSection tone="paper" tearTop="var(--paper-tint)">
         <Container className="py-24 sm:py-28">
           <SectionHeading
-            eyebrow="The team"
+            eyebrow={aboutCopy.team.eyebrow}
             watermark="Crew"
             align="center"
-            title="A full deck"
-            description="Small teams, real ownership. Hover or scroll a card to see who is behind it."
+            title={aboutCopy.team.title}
+            description={aboutCopy.team.description}
             className="mb-16"
           />
 
@@ -176,105 +155,45 @@ export default function AboutPage() {
         </Container>
       </PaperSection>
 
-      {/* Process */}
+      {/* Property types we market */}
       <PaperSection tone="brand" tearTop="var(--paper)" tearBottom="var(--paper)">
         <Container className="py-24 sm:py-28">
           <SectionHeading
-            eyebrow="How we work"
-            watermark="Process"
+            eyebrow="What we market"
+            watermark="Real estate"
             align="center"
             inverted
-            title="From concept to connection"
-            description="Five steps, run the same way on every engagement — so you always know which one you are in."
+            title={aboutCopy.fluent.title}
+            description={aboutCopy.fluent.description}
             className="mb-16"
           />
 
-          <ol className="relative grid gap-8 md:grid-cols-5 md:gap-4">
-            {/* The dotted thread linking the steps. */}
-            <span
-              aria-hidden="true"
-              className="absolute top-8 right-[10%] left-[10%] hidden border-t-2 border-dashed border-white/30 md:block"
-            />
-
-            {processSteps.map((step, index) => (
-              <Reveal as="li" key={step.step} delay={index * 110} className="relative text-center">
-                <span className="relative z-10 mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-accent text-[#2a2135] shadow-lift-md">
-                  <Icon name={step.icon} className="h-6 w-6" strokeWidth={2.2} />
-                  <span className="absolute -top-1.5 -right-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-white font-display text-xs font-bold text-brand">
-                    {step.step}
+          <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {realEstateTypes.map((type, index) => (
+              <Reveal as="li" key={type.title} delay={index * 80}>
+                <div className="flex h-full items-start gap-4 rounded-2xl border border-white/15 bg-white/[0.07] p-6 transition-colors duration-200 hover:bg-white/[0.12]">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent text-[#2a2135] shadow-lift-sm">
+                    <Icon name={type.icon} className="h-5 w-5" strokeWidth={2.2} />
                   </span>
-                </span>
-                <h3 className="mt-5 font-display text-lg font-semibold text-white">
-                  {step.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/75">{step.body}</p>
-              </Reveal>
-            ))}
-          </ol>
-        </Container>
-      </PaperSection>
-
-      {/* Timeline */}
-      <PaperSection tone="paper">
-        <Container className="py-24 sm:py-28">
-          <SectionHeading
-            eyebrow="2019 → 2026"
-            watermark="Timeline"
-            align="center"
-            title="One sheet at a time"
-            description="Seven years, from a single desk to a studio of thirty."
-            className="mb-16"
-          />
-
-          {/*
-           * Two equal columns with the thread running between them. Entries
-           * alternate sides by choosing their column, so nothing is positioned
-           * by hand and the content can never overlap the line. Below `sm` it
-           * collapses to a single column with the thread on the left.
-           */}
-          <ol className="relative mx-auto max-w-3xl">
-            <span
-              aria-hidden="true"
-              className="absolute top-2 bottom-2 left-[0.6rem] w-0.5 bg-gradient-to-b from-accent via-brand-soft to-brand sm:left-1/2 sm:-translate-x-1/2"
-            />
-
-            {timeline.map((entry, index) => (
-              <Reveal
-                as="li"
-                key={entry.year}
-                delay={index * 70}
-                className="relative mb-9 pl-10 last:mb-0 sm:mb-12 sm:grid sm:grid-cols-2 sm:gap-x-12 sm:pl-0"
-              >
-                <span
-                  aria-hidden="true"
-                  className="absolute top-1.5 left-0 h-5 w-5 rounded-full border-4 border-paper bg-brand sm:left-1/2 sm:-translate-x-1/2"
-                />
-
-                <div
-                  className={
-                    index % 2 === 0 ? "sm:col-start-1 sm:text-right" : "sm:col-start-2"
-                  }
-                >
-                  <p className="font-display text-2xl font-bold text-accent-deep dark:text-accent">
-                    {entry.year}
-                  </p>
-                  <h3 className="mt-1 font-display text-lg font-semibold text-ink">
-                    {entry.title}
-                  </h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">{entry.body}</p>
+                  <div>
+                    <h3 className="font-display text-base font-semibold tracking-[0.12em] text-white">
+                      {type.title}
+                    </h3>
+                    <p className="mt-1.5 text-sm leading-relaxed text-white/75">{type.body}</p>
+                  </div>
                 </div>
               </Reveal>
             ))}
-          </ol>
+          </ul>
         </Container>
       </PaperSection>
 
       <CtaBand
         tone="accent"
         tearTop="var(--paper)"
-        eyebrow="Work with us"
-        heading="Want this team on your brand?"
-        body={`Tell us what you're launching. We'll tell you honestly whether ${site.name} is the right studio for it.`}
+        eyebrow={aboutCopy.cta.eyebrow}
+        heading={aboutCopy.cta.heading}
+        body={aboutCopy.cta.body}
         label="Start a conversation"
       />
     </>

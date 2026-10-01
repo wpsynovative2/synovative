@@ -1,5 +1,5 @@
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
-import { site } from "@/content/site";
+import { contactCopy, fullAddress, site } from "@/content/site";
 import { Container, SectionHeading, Sheet, StickyNote } from "@/components/paper/primitives";
 import { PaperSection } from "@/components/paper/torn-edge";
 import { LeadForm } from "@/components/forms/lead-form";
@@ -13,8 +13,8 @@ import type { ServiceSlug } from "@/types";
  */
 export function ContactBlock({
   defaultService = "general",
-  heading = "Tell us what you're building.",
-  description = "One form, one reply, within a working day. No call centre, no automated sequence — a person from the team who would actually run the work.",
+  heading = contactCopy.heading,
+  description = contactCopy.description,
   tone = "paper",
   tearBottom,
   tearTop,
@@ -33,7 +33,7 @@ export function ContactBlock({
           {/* Details */}
           <div>
             <SectionHeading
-              eyebrow="Get in touch"
+              eyebrow={contactCopy.eyebrow}
               watermark="Hello"
               title={heading}
               description={description}
@@ -45,11 +45,9 @@ export function ContactBlock({
                   <MapPin className="h-5 w-5" />
                 </span>
                 <div>
-                  <p className="font-display text-sm font-semibold text-ink">Studio</p>
+                  <p className="font-display text-sm font-semibold text-ink">Address</p>
                   <address className="mt-0.5 text-sm leading-relaxed text-ink-soft not-italic">
-                    {site.address.street}
-                    <br />
-                    {site.address.locality}, {site.address.region} {site.address.postalCode}
+                    {fullAddress}
                   </address>
                 </div>
               </li>
@@ -64,8 +62,6 @@ export function ContactBlock({
                     <a href={`tel:${site.contact.phoneHref}`} className="hover:text-brand">
                       {site.contact.phone}
                     </a>
-                    <span className="mx-1.5 text-ink-faint">·</span>
-                    {site.contact.altPhone}
                   </p>
                 </div>
               </li>
@@ -91,7 +87,7 @@ export function ContactBlock({
                 <div>
                   <p className="font-display text-sm font-semibold text-ink">Hours</p>
                   <p className="mt-0.5 text-sm text-ink-soft">
-                    Mon–Fri, 10:00–19:00 · Sat, 10:00–16:00
+                    {site.hoursLabel}
                   </p>
                 </div>
               </li>
@@ -115,8 +111,9 @@ export function ContactBlock({
 
             <StickyNote tone="accent" tiltSeed="contact-note" className="mt-10 max-w-xs">
               <p className="font-hand text-lg leading-snug">
-                Prefer to skip the form? Call the studio — someone who does the
-                work will pick up.
+                {contactCopy.note[0]}
+                <br />
+                {contactCopy.note[1]}
               </p>
             </StickyNote>
           </div>
@@ -128,7 +125,7 @@ export function ContactBlock({
               Start the conversation
             </h3>
             <p className="mt-2 mb-7 text-sm text-ink-soft">
-              The more you tell us here, the more useful our first reply will be.
+              {contactCopy.promise}
             </p>
             <LeadForm defaultService={defaultService} />
           </Sheet>
