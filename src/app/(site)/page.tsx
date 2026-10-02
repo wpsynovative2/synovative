@@ -22,6 +22,7 @@ import { HomeHero } from "@/components/sections/home-hero";
 import { ProjectCard } from "@/components/sections/project-card";
 import { BlogCard } from "@/components/sections/blog-card";
 import { TestimonialsSection } from "@/components/sections/testimonials";
+import { ServicesShowcase } from "@/components/sections/services-showcase";
 import { ContactBlock } from "@/components/sections/contact-block";
 import { ButtonLink } from "@/components/ui/button";
 import { Hero } from "@/components/sections/Hero";
@@ -203,6 +204,12 @@ export default async function HomePage() {
           </StickyNote>
         </Container>
       </PaperSection>
+
+      {/* Our services — the mascot who watches the cursor */}
+      <ServicesShowcase
+        tearTop="var(--paper-sunken)"
+        tearBottom="var(--paper-tint)"
+      />
 
       <TestimonialsSection
         testimonials={testimonials}
