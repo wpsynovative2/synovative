@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { onHeroReady } from "@/lib/hero-ready";
-import { InfinityLoader } from "@/components/ui/infinity-loader";
+import { DualArc } from "@/components/ui/dual-arc";
 
 const PRELOADER_SEEN_KEY = "synovative-preloaded";
 /** Keeps the brand moment from flickering past on a warm cache. */
@@ -108,7 +108,7 @@ export function SitePreloader() {
         width={220}
         className="hidden h-auto w-[220px] dark:block"
       />
-      <InfinityLoader size={64} label="Loading Synovative…" />
+      <DualArc className="size-12 text-brand" aria-label="Loading Synovative…" />
       <noscript>
         <style>{`#site-preloader{display:none}`}</style>
       </noscript>

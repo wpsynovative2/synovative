@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { SkipForward } from "lucide-react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { scrollToSection } from "@/components/providers/smooth-scroll";
-import { InfinityLoader } from "@/components/ui/infinity-loader";
+import { DualArc } from "@/components/ui/dual-arc";
 import { markHeroReady } from "@/lib/hero-ready";
 import { cn } from "@/lib/utils";
 
@@ -182,7 +182,7 @@ export function Hero() {
           )}
           aria-hidden={framesReady}
         >
-          {!framesReady && <InfinityLoader size={64} />}
+          {!framesReady && <DualArc className="size-14 text-brand" />}
         </div>
 
         {/* <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/20 to-transparent" /> */}

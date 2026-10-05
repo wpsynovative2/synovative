@@ -1,9 +1,9 @@
-import { InfinityLoader } from "@/components/ui/infinity-loader";
+import { DualArc } from "@/components/ui/dual-arc";
 
 export default function Loading() {
   return (
     <div className="flex min-h-[50vh] items-center justify-center">
-      <InfinityLoader size={56} />
+      <DualArc className="size-12 text-brand" />
     </div>
   );
 }
