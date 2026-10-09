@@ -3,7 +3,12 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Play } from "lucide-react";
-import { youtubeEmbedUrl, youtubeThumbnail } from "@/lib/cloudinary";
+import {
+  cloudinaryUrl,
+  isCloudinaryConfigured,
+  youtubeEmbedUrl,
+  youtubeThumbnail,
+} from "@/lib/cloudinary";
 
 /**
  * Click-to-load YouTube embed.
@@ -42,7 +47,11 @@ export function VideoEmbed({
           aria-label={`Play video: ${title}`}
         >
           <Image
-            src={poster ?? youtubeThumbnail(videoId)}
+            src={
+              poster && isCloudinaryConfigured
+                ? cloudinaryUrl(poster, { width: 1280, height: 720 })
+                : youtubeThumbnail(videoId)
+            }
             alt=""
             fill
             sizes="(max-width: 768px) 90vw, 45vw"

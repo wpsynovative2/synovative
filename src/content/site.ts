@@ -39,17 +39,40 @@ export const site = {
   /** Used by the LocalBusiness schema. */
   openingHours: [
     {
-      days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      days: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ],
       opens: "10:00",
       closes: "19:00",
     },
   ],
 
   socials: [
-    { label: "Instagram", url: "https://www.instagram.com/synovative", icon: "Instagram" },
-    { label: "Facebook", url: "https://www.facebook.com/synovative", icon: "Facebook" },
-    { label: "LinkedIn", url: "https://www.linkedin.com/company/synovative", icon: "Linkedin" },
-    { label: "YouTube", url: "https://www.youtube.com/@synovative", icon: "Youtube" },
+    {
+      label: "Instagram",
+      url: "https://www.instagram.com/synovative",
+      icon: "Instagram",
+    },
+    {
+      label: "Facebook",
+      url: "https://www.facebook.com/synovative",
+      icon: "Facebook",
+    },
+    {
+      label: "LinkedIn",
+      url: "https://www.linkedin.com/company/synovative",
+      icon: "Linkedin",
+    },
+    {
+      label: "YouTube",
+      url: "https://www.youtube.com/@synovative",
+      icon: "Youtube",
+    },
   ],
 
   /** Embedded on the contact page. */
@@ -78,7 +101,8 @@ export const homeCopy = {
   services: {
     eyebrow: "What We Do",
     title: "We break the fourth wall and tell the story",
-    description: "Whether you need one piece or the whole property package, we’re in",
+    description:
+      "Whether you need one piece or the whole property package, we’re in",
   },
   testimonials: {
     eyebrow: "Not To Brag, But…",
@@ -91,8 +115,12 @@ export const homeCopy = {
 export const contactCopy = {
   eyebrow: "Get In Touch",
   heading: "Got a project? A problem? A “hear me out” idea?",
-  description: "We’re listening. Fill in the form and we’ll take it from there.",
-  note: ["Prefer to skip the form? Call the agency.", "Your brief might meet its match."],
+  description:
+    "We’re listening. Fill in the form and we’ll take it from there.",
+  note: [
+    "Prefer to skip the form? Call the agency.",
+    "Your brief might meet its match.",
+  ],
   promise: "We reply within one working day. Promise.",
 };
 
@@ -108,16 +136,19 @@ export const aboutCopy = {
     "We know real estate has more to it than square feet. We look beyond the elevation, the amenities, and the carpet area to find what makes a project worth talking about, then build the story around it.",
   process: {
     title: "How Synovative works",
-    description: "A brief tour of what happens before the first hoarding goes up.",
+    description:
+      "A brief tour of what happens before the first hoarding goes up.",
   },
   team: {
     eyebrow: "The Team",
     title: "A full deck",
-    description: "Hover or scroll a card to see the brains locked in Synovative.",
+    description:
+      "Hover or scroll a card to see the brains locked in Synovative.",
   },
   fluent: {
     title: "We are fluent in real estate",
-    description: "No matter what you’re building, we know how to get you buyers",
+    description:
+      "No matter what you’re building, we know how to get you buyers",
   },
   cta: {
     eyebrow: "Work with us",
@@ -127,13 +158,14 @@ export const aboutCopy = {
 };
 
 export const ceo = {
-  name: "Rahul Sharma",
+  name: "Ammar Azmi",
   role: "Founder & Chief Executive Officer",
   // Cloudinary public id, like every other image reference. Resolving through
   // `cloudinaryUrl` means it falls back to the placeholder before media is
   // uploaded, rather than 404ing against `public/`.
   photo: "synovative/team/ceo",
-  quote: "If you can’t explain the idea, the numbers, and the why, it’s not ready.",
+  quote:
+    "If you can’t explain the idea, the numbers, and the why, it’s not ready.",
   bio: [
     "Founded Synovative in 2019.",
     "Has a soft spot for good ideas and brutally honest reports. Keeps strategy, creativity, and performance in the same room.",
@@ -182,12 +214,36 @@ export const processSteps: ProcessStep[] = [
 
 /** The property types on the About page's "fluent in real estate" grid. */
 export const realEstateTypes = [
-  { title: "HOMES", body: "Apartments, luxury homes, villas, second homes", icon: "Home" },
-  { title: "COMMERCIAL", body: "Offices, shops, showrooms, business spaces", icon: "Store" },
-  { title: "INDUSTRIAL", body: "Galas, sheds, warehouses, industrial estates", icon: "Factory" },
-  { title: "PLOTS", body: "Residential plots, NA plots, township plots", icon: "Map" },
-  { title: "TOWNSHIPS", body: "Large-scale and integrated developments", icon: "Building2" },
-  { title: "HOSPITALITY", body: "Hotels, resorts, holiday & managed residences", icon: "Hotel" },
+  {
+    title: "HOMES",
+    body: "Apartments, luxury homes, villas, second homes",
+    icon: "Home",
+  },
+  {
+    title: "COMMERCIAL",
+    body: "Offices, shops, showrooms, business spaces",
+    icon: "Store",
+  },
+  {
+    title: "INDUSTRIAL",
+    body: "Galas, sheds, warehouses, industrial estates",
+    icon: "Factory",
+  },
+  {
+    title: "PLOTS",
+    body: "Residential plots, NA plots, township plots",
+    icon: "Map",
+  },
+  {
+    title: "TOWNSHIPS",
+    body: "Large-scale and integrated developments",
+    icon: "Building2",
+  },
+  {
+    title: "HOSPITALITY",
+    body: "Hotels, resorts, holiday & managed residences",
+    icon: "Hotel",
+  },
 ];
 
 export const portfolioCopy = {
@@ -219,7 +275,8 @@ export const blogsCopy = {
 export const contactPageCopy = {
   eyebrow: "Contact",
   title: "Your project. Our two cents.",
-  intro: "Send us the brief. The floor plan. The half-baked idea. We’ll take it from there.",
+  intro:
+    "Send us the brief. The floor plan. The half-baked idea. We’ll take it from there.",
   findUs: { eyebrow: "Find Us", title: "Come by. We’ll put the kettle on." },
   faq: {
     eyebrow: "Before you write",
@@ -292,7 +349,8 @@ export const careersCopy = {
   openings: {
     eyebrow: "Open Roles",
     title: "Come be part of the plot.",
-    description: "Your next career move has a floor plan; consider this your site visit.",
+    description:
+      "Your next career move has a floor plan; consider this your site visit.",
   },
   apply: {
     eyebrow: "Apply",
@@ -300,7 +358,10 @@ export const careersCopy = {
     body: "A portfolio, a project, a campaign, a particularly good piece of work. We’ll take a look at anything that shows us how you think.",
     note: [
       { label: "FOUND YOUR ROLE?", text: "Go for it." },
-      { label: "DIDN’T?", text: "Send us your work anyway. We’ll figure it out." },
+      {
+        label: "DIDN’T?",
+        text: "Send us your work anyway. We’ll figure it out.",
+      },
     ],
   },
 };

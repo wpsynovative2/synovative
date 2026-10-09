@@ -6,8 +6,8 @@ import type { TeamMember, Testimonial } from "@/types";
  */
 export const team: TeamMember[] = [
   {
-    id: "t-rahul",
-    name: "Rahul Sharma",
+    id: "t-ammar",
+    name: "Ammar Azmi",
     role: "Founder & CEO",
     photo: "synovative/team/rahul",
     bio: "Thirteen years across brand and performance. Sits in on every kickoff and reads every monthly report before it goes out.",
