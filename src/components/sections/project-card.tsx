@@ -38,9 +38,10 @@ export function ProjectCard({
       />
 
       <div className="sheet paper-grain h-full overflow-hidden transition-all duration-300 group-hover:-translate-y-1.5 group-hover:shadow-lift-lg">
-        <div className="relative aspect-[4/3] overflow-hidden bg-paper-sunken">
+        {/* Portrait, matching the 4:5 campaign creatives so they show uncropped. */}
+        <div className="relative aspect-[4/5] overflow-hidden bg-paper-sunken">
           <Image
-            src={cloudinaryUrl(project.image, { width: 900, height: 675 })}
+            src={cloudinaryUrl(project.image, { width: 800, height: 1000 })}
             alt={`${project.title} — ${project.client}`}
             fill
             sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
@@ -77,22 +78,6 @@ export function ProjectCard({
               {isExternal && <ArrowUpRight className="ml-1 inline h-4 w-4 align-[-2px]" />}
             </Link>
           </h3>
-          <p className="mt-2 text-sm leading-relaxed text-ink-soft">{project.summary}</p>
-
-          {project.metrics && project.metrics.length > 0 && (
-            <dl className="mt-4 flex flex-wrap gap-x-5 gap-y-2 border-t border-line pt-3">
-              {project.metrics.map((metric) => (
-                <div key={metric.label}>
-                  <dt className="text-[0.65rem] tracking-[0.12em] text-ink-faint uppercase">
-                    {metric.label}
-                  </dt>
-                  <dd className="font-display text-base font-bold text-brand">
-                    {metric.value}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          )}
         </div>
       </div>
     </article>

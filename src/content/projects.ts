@@ -28,7 +28,7 @@ export const projects: Project[] = [
     services: ["social-media-marketing", "branding", "performance-marketing"],
     summary:
       "A full launch identity and social calendar for a 1BHK residential project, built around one line the sales team could actually repeat.",
-    image: "synovative/projects/dhyan-happiness",
+    image: "/images/projects/hill-galaxy/dream-destination.webp",
     featured: true,
     year: 2025,
     metrics: [
@@ -46,7 +46,7 @@ export const projects: Project[] = [
     services: ["social-media-marketing", "branding"],
     summary:
       "Repositioned a Naigaon project around wellness rather than price, with a hoarding and social system that carried the same calm.",
-    image: "synovative/projects/nirvaana-shaanti",
+    image: "/images/projects/jk-iris/welcome-pyaar-ka-tohfa.webp",
     featured: true,
     year: 2025,
     metrics: [
@@ -63,7 +63,7 @@ export const projects: Project[] = [
     services: ["branding", "social-media-marketing"],
     summary:
       "Premium launch creative across print, hoarding and digital for a luxury tower, colour-matched from newsprint to LED.",
-    image: "synovative/projects/shanti-heights",
+    image: "/images/projects/sk-imperial/chosen-location.webp",
     featured: true,
     year: 2024,
   },
@@ -76,7 +76,7 @@ export const projects: Project[] = [
     services: ["branding"],
     summary:
       "A pearl-and-shell identity system for a seafront tower: logo suite, brochure, site branding and sales-gallery graphics.",
-    image: "synovative/projects/lord-of-seas",
+    image: "/images/projects/deep-emerald/site-hoardings.webp",
     featured: true,
     year: 2024,
   },
@@ -89,8 +89,7 @@ export const projects: Project[] = [
     services: ["property-shooting-editing", "social-media-marketing"],
     summary:
       "A lifestyle film series shot across the podium, clubhouse and open spaces, cut into a hero film plus eleven paid cutdowns.",
-    image: "synovative/projects/modern-needs",
-    youtubeId: "aqz-KE-bpKQ",
+    image: "/images/projects/hill-galaxy/modern-needs.webp",
     featured: true,
     year: 2025,
     metrics: [
@@ -125,7 +124,7 @@ export const projects: Project[] = [
     services: ["social-media-marketing", "performance-marketing"],
     summary:
       "A seven-day countdown built as one continuous illustration, cut into daily posts that only made sense as a set.",
-    image: "synovative/projects/one-day-to-go",
+    image: "/images/projects/hill-galaxy/bigger-rewards.webp",
     featured: false,
     year: 2024,
   },
@@ -138,7 +137,7 @@ export const projects: Project[] = [
     services: ["website-app-development", "performance-marketing"],
     summary:
       "A single-page micro-site for the launch campaign: 0.9s largest contentful paint on 4G, with the enquiry form above the fold.",
-    image: "synovative/projects/nirvaana-site",
+    image: "/images/projects/deep-emerald/landing-page-mockup.webp",
     externalUrl: "https://example.com/nirvaana",
     featured: true,
     year: 2025,
@@ -170,7 +169,7 @@ export const projects: Project[] = [
     services: ["branding"],
     summary:
       "Twelve highway hoardings designed to the three-second rule, each built at placement-correct resolution and viewing distance.",
-    image: "synovative/projects/hoarding-suite",
+    image: "/images/projects/hill-galaxy/billboard-expressway.webp",
     featured: false,
     year: 2025,
   },
@@ -183,7 +182,7 @@ export const projects: Project[] = [
     services: ["branding"],
     summary:
       "A four-fold newspaper insert designed against newsprint dot gain, distributed across 180,000 copies in the launch radius.",
-    image: "synovative/projects/newspaper-insert",
+    image: "/images/projects/sk-imperial/newspaper-insert.webp",
     featured: false,
     year: 2024,
   },
@@ -196,7 +195,7 @@ export const projects: Project[] = [
     services: ["property-shooting-editing", "social-media-marketing"],
     summary:
       "Eight creator collaborations shot on site across a quarter, with deliverables, disclosure and usage rights negotiated up front.",
-    image: "synovative/projects/influencer-series",
+    image: "/images/projects/hill-galaxy/fitness-freedom.webp",
     featured: false,
     year: 2025,
   },
