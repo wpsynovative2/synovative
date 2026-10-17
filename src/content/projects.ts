@@ -20,6 +20,58 @@ export const categoryLabels = Object.fromEntries(
  */
 export const projects: Project[] = [
   {
+    id: "p-deep-emerald",
+    slug: "deep-emerald-ultimate-jackpot",
+    title: "Deep Emerald — The Ultimate Jackpot",
+    client: "Deep Group",
+    category: "featured-websites",
+    services: ["website-app-development", "branding", "social-media-marketing"],
+    summary:
+      "\"The Ultimate Jackpot\" launch for Deep Emerald, Nalasopara West: landing page, site hoardings, pole banners, newspaper insert and a social series.",
+    image: "/images/projects/deep-emerald/landing-page-mockup.webp",
+    featured: true,
+    year: 2026,
+  },
+  {
+    id: "p-hill-galaxy",
+    slug: "hill-galaxy-dhyan-kidhar-hai",
+    title: "Hill Galaxy — Dhyan Kidhar Hai?",
+    client: "AR Builders",
+    category: "featured-posts",
+    services: ["social-media-marketing", "branding"],
+    summary:
+      "The \"Dhyan Kidhar Hai?\" campaign for Hill Galaxy Phase 2, Mira Road (E): social creatives, billboards, bus shelters, flyers and channel-partner rewards.",
+    image: "/images/projects/hill-galaxy/dream-destination.webp",
+    featured: true,
+    year: 2026,
+  },
+  {
+    id: "p-jk-iris",
+    slug: "jk-iris-pyaar-ka-tohfa",
+    title: "JK Iris — Pyaar Ka Tohfa",
+    client: "JK Developers",
+    category: "featured-videos",
+    services: ["branding", "social-media-marketing"],
+    summary:
+      "The \"Pyaar Ka Tohfa\" campaign for JK Iris, Mira Road (E): social creatives, site branding, street banners, bus-stop ads and newspaper inserts.",
+    image: "/images/projects/jk-iris/welcome-pyaar-ka-tohfa.webp",
+    featured: true,
+    year: 2026,
+  },
+  {
+    id: "p-imperial-garden",
+    slug: "imperial-garden-chosen",
+    title: "Imperial Garden — Chosen",
+    client: "SK Imperial",
+    category: "branding",
+    services: ["branding", "social-media-marketing"],
+    summary:
+      "The \"Chosen\" identity for Imperial Garden: site hoardings, pole banners, flyers, newspaper insert and a matching social series.",
+    image: "/images/projects/sk-imperial/site-hoarding.webp",
+    featured: true,
+    year: 2026,
+  },
+  {
     id: "p-dhyan-happiness",
     slug: "dhyan-siddhi-happiness-launch",
     title: "Happiness Ghar Hai — Launch Campaign",
@@ -28,8 +80,8 @@ export const projects: Project[] = [
     services: ["social-media-marketing", "branding", "performance-marketing"],
     summary:
       "A full launch identity and social calendar for a 1BHK residential project, built around one line the sales team could actually repeat.",
-    image: "/images/projects/hill-galaxy/dream-destination.webp",
-    featured: true,
+    image: "synovative/projects/dhyan-happiness",
+    featured: false,
     year: 2025,
     metrics: [
       { label: "Enquiries", value: "412" },
@@ -46,8 +98,8 @@ export const projects: Project[] = [
     services: ["social-media-marketing", "branding"],
     summary:
       "Repositioned a Naigaon project around wellness rather than price, with a hoarding and social system that carried the same calm.",
-    image: "/images/projects/jk-iris/welcome-pyaar-ka-tohfa.webp",
-    featured: true,
+    image: "synovative/projects/nirvaana-shaanti",
+    featured: false,
     year: 2025,
     metrics: [
       { label: "Follower growth", value: "+13.4K" },
@@ -63,8 +115,8 @@ export const projects: Project[] = [
     services: ["branding", "social-media-marketing"],
     summary:
       "Premium launch creative across print, hoarding and digital for a luxury tower, colour-matched from newsprint to LED.",
-    image: "/images/projects/sk-imperial/chosen-location.webp",
-    featured: true,
+    image: "synovative/projects/shanti-heights",
+    featured: false,
     year: 2024,
   },
   {
@@ -76,8 +128,8 @@ export const projects: Project[] = [
     services: ["branding"],
     summary:
       "A pearl-and-shell identity system for a seafront tower: logo suite, brochure, site branding and sales-gallery graphics.",
-    image: "/images/projects/deep-emerald/site-hoardings.webp",
-    featured: true,
+    image: "synovative/projects/lord-of-seas",
+    featured: false,
     year: 2024,
   },
   {
@@ -89,8 +141,9 @@ export const projects: Project[] = [
     services: ["property-shooting-editing", "social-media-marketing"],
     summary:
       "A lifestyle film series shot across the podium, clubhouse and open spaces, cut into a hero film plus eleven paid cutdowns.",
-    image: "/images/projects/hill-galaxy/modern-needs.webp",
-    featured: true,
+    image: "synovative/projects/modern-needs",
+    youtubeId: "aqz-KE-bpKQ",
+    featured: false,
     year: 2025,
     metrics: [
       { label: "Video views", value: "1.8M" },
@@ -112,7 +165,7 @@ export const projects: Project[] = [
       before: "synovative/projects/naigaon-aerial-raw",
       after: "synovative/projects/naigaon-aerial-graded",
     },
-    featured: true,
+    featured: false,
     year: 2025,
   },
   {
@@ -124,7 +177,7 @@ export const projects: Project[] = [
     services: ["social-media-marketing", "performance-marketing"],
     summary:
       "A seven-day countdown built as one continuous illustration, cut into daily posts that only made sense as a set.",
-    image: "/images/projects/hill-galaxy/bigger-rewards.webp",
+    image: "synovative/projects/one-day-to-go",
     featured: false,
     year: 2024,
   },
@@ -137,9 +190,9 @@ export const projects: Project[] = [
     services: ["website-app-development", "performance-marketing"],
     summary:
       "A single-page micro-site for the launch campaign: 0.9s largest contentful paint on 4G, with the enquiry form above the fold.",
-    image: "/images/projects/deep-emerald/landing-page-mockup.webp",
+    image: "synovative/projects/nirvaana-site",
     externalUrl: "https://example.com/nirvaana",
-    featured: true,
+    featured: false,
     year: 2025,
     metrics: [
       { label: "LCP", value: "0.9s" },
@@ -169,7 +222,7 @@ export const projects: Project[] = [
     services: ["branding"],
     summary:
       "Twelve highway hoardings designed to the three-second rule, each built at placement-correct resolution and viewing distance.",
-    image: "/images/projects/hill-galaxy/billboard-expressway.webp",
+    image: "synovative/projects/hoarding-suite",
     featured: false,
     year: 2025,
   },
@@ -182,7 +235,7 @@ export const projects: Project[] = [
     services: ["branding"],
     summary:
       "A four-fold newspaper insert designed against newsprint dot gain, distributed across 180,000 copies in the launch radius.",
-    image: "/images/projects/sk-imperial/newspaper-insert.webp",
+    image: "synovative/projects/newspaper-insert",
     featured: false,
     year: 2024,
   },
@@ -195,7 +248,7 @@ export const projects: Project[] = [
     services: ["property-shooting-editing", "social-media-marketing"],
     summary:
       "Eight creator collaborations shot on site across a quarter, with deliverables, disclosure and usage rights negotiated up front.",
-    image: "/images/projects/hill-galaxy/fitness-freedom.webp",
+    image: "synovative/projects/influencer-series",
     featured: false,
     year: 2025,
   },
