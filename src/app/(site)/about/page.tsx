@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { aboutCopy, ceo, processSteps, realEstateTypes } from "@/content/site";
 import { team } from "@/content/team";
+import { crewSlides } from "@/content/crew-showcase";
 import { cloudinaryUrl } from "@/lib/cloudinary";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema } from "@/lib/seo/schema";
@@ -16,6 +17,7 @@ import { Reveal } from "@/components/paper/reveal";
 import { TeamCard } from "@/components/paper/flip-card";
 import { PageHero } from "@/components/sections/page-hero";
 import { CtaBand } from "@/components/sections/cta-band";
+import { CrewShowcase } from "@/components/sections/crew-showcase";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Icon } from "@/components/ui/icon";
 
@@ -133,8 +135,15 @@ export default function AboutPage() {
         </Container>
       </PaperSection>
 
-      {/* Team */}
-      <PaperSection tone="paper" tearTop="var(--paper-tint)">
+      {/* Crew character showcase */}
+      <CrewShowcase
+        slides={crewSlides}
+        tearTop="var(--paper-tint)"
+        tearBottom="var(--paper)"
+      />
+
+      {/* Team — no top tear: the showcase above tears into this band. */}
+      <PaperSection tone="paper">
         <Container className="py-24 sm:py-28">
           <SectionHeading
             eyebrow={aboutCopy.team.eyebrow}
