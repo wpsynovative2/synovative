@@ -18,6 +18,8 @@ import { TeamCard } from "@/components/paper/flip-card";
 import { PageHero } from "@/components/sections/page-hero";
 import { CtaBand } from "@/components/sections/cta-band";
 import { CrewShowcase } from "@/components/sections/crew-showcase";
+import { CrewCards } from "@/components/sections/crew-cards";
+import { crewCards } from "@/content/crew-cards";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Icon } from "@/components/ui/icon";
 
@@ -164,8 +166,22 @@ export default function AboutPage() {
         </Container>
       </PaperSection>
 
+      {/* Many hats — crew character card carousel */}
+      <PaperSection tone="tint" tearTop="var(--paper)">
+        <Container size="wide" className="py-24 sm:py-28">
+          <SectionHeading
+            eyebrow="Many hats"
+            watermark="Crafts"
+            title="Two people, six crafts"
+            description="Vipul and Nishant each own more than one part of a launch. Flip through the cards to see who handles what, from the first brand sketch to the final cut."
+            className="mb-8"
+          />
+          <CrewCards cards={crewCards} />
+        </Container>
+      </PaperSection>
+
       {/* Property types we market */}
-      <PaperSection tone="brand" tearTop="var(--paper)" tearBottom="var(--paper)">
+      <PaperSection tone="brand" tearTop="var(--paper-tint)" tearBottom="var(--paper)">
         <Container className="py-24 sm:py-28">
           <SectionHeading
             eyebrow="What we market"
