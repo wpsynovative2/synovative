@@ -130,11 +130,15 @@ export function CrewShowcase({ slides, tearTop, tearBottom }: CrewShowcaseProps)
         const tl = gsap.timeline({ onComplete: () => void gsap.set(from, { autoAlpha: 0 }) });
         transition = tl;
 
-        tl.set(to, { autoAlpha: 1, zIndex: 2 }).set(from, { zIndex: 1 });
+        // Slide layers never get a z-index (no stacking context), so every
+        // word sits below every figure; only the two figures are ordered,
+        // with the newcomer passing in front of the one leaving.
+        tl.set(to, { autoAlpha: 1 });
+        tl.set(part(from, "figure-wrap"), { zIndex: 11 }).set(part(to, "figure-wrap"), { zIndex: 12 });
         tl.to(
           root,
-          { backgroundColor: slides[next].background, duration: reduced ? 0.4 : 0.9, ease: "power2.inOut" },
-          0,
+          { backgroundColor: slides[next].background, duration: reduced ? 0.4 : 0.7, ease: "power2.inOut" },
+          reduced ? 0 : 0.15,
         );
 
         if (reduced) {
@@ -143,27 +147,38 @@ export function CrewShowcase({ slides, tearTop, tearBottom }: CrewShowcaseProps)
           tl.set(letters(to), { yPercent: 0 }, 0);
           tl.set([part(to, "figure"), ...labelLines(to)], { clearProps: "all" }, 0);
         } else {
-          // Outgoing: figure lunges towards the camera and exits sideways.
+          // Distances are fractions of the section width so the figures
+          // genuinely cross the frame at any viewport size.
+          const width = root.clientWidth;
+
+          // The big word rolls first: old letters up and out...
+          tl.to(letters(from), { yPercent: -110, duration: 0.5, stagger: 0.03, ease: "power3.in" }, 0);
+          tl.to(labelLines(from), { y: -18, autoAlpha: 0, duration: 0.3, stagger: 0.05, ease: "power2.in" }, 0);
+
+          // Outgoing: stays solid, zooms in (1 -> 1.7) while sliding from the
+          // centre out past the left edge — like the camera pushing past it.
           tl.to(
             part(from, "figure"),
-            { xPercent: -75 * dir, scale: 1.55, autoAlpha: 0, duration: 0.75, ease: "power3.in" },
-            0,
+            { x: -0.72 * width * dir, scale: 1.7, duration: 0.75, ease: "power2.in" },
+            0.12,
           );
-          tl.to(letters(from), { yPercent: -110, duration: 0.55, stagger: 0.035, ease: "power3.in" }, 0);
-          tl.to(labelLines(from), { y: -18, autoAlpha: 0, duration: 0.35, stagger: 0.05, ease: "power2.in" }, 0);
 
-          // Incoming: arrives zoomed-in from the other side and settles.
+          // Incoming: solid, enters at the right edge already zoomed in
+          // (1.7) and zooms out to 1 as it travels to the centre.
           tl.fromTo(
             part(to, "figure"),
-            { xPercent: 65 * dir, scale: 1.6, autoAlpha: 0 },
-            { xPercent: 0, scale: 1, autoAlpha: 1, duration: 1.05, ease: "power3.out" },
-            0.2,
+            // Starts fully off-frame so nothing peeks in before it moves.
+            { x: 0.85 * width * dir, scale: 1.7, autoAlpha: 1 },
+            { x: 0, scale: 1, duration: 1, ease: "power3.out" },
+            0.32,
           );
+
+          // ...new letters rise in from below.
           tl.fromTo(
             letters(to),
             { yPercent: 110 },
-            { yPercent: 0, duration: 0.8, stagger: 0.045, ease: "power3.out" },
-            0.35,
+            { yPercent: 0, duration: 0.75, stagger: 0.04, ease: "power3.out" },
+            0.3,
           );
           tl.fromTo(
             labelLines(to),
@@ -362,7 +377,7 @@ function SlideLayer({
       {/* Oversized backdrop word. Each letter rises out of its own clip. */}
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 top-[40%] flex -translate-y-1/2 justify-center md:top-[46%]"
+        className="absolute inset-x-0 top-[40%] z-0 flex -translate-y-1/2 justify-center md:top-[46%]"
       >
         <span
           className="flex font-[family-name:var(--font-crew)] leading-[0.8] font-extrabold select-none [--word-w:94cqw] md:[--word-w:86cqw]"
@@ -384,8 +399,11 @@ function SlideLayer({
 
       {/* Figure. Outer box positions; `data-figure` is animated; `data-float` bobs. */}
       {/* md:bottom clears the 44px torn edge, which is drawn over the section. */}
-      <div className="pointer-events-none absolute inset-x-0 top-[16%] bottom-[18%] flex justify-center md:top-[6%] md:bottom-14">
-        <div data-figure className="h-full origin-[50%_60%]">
+      <div
+        data-figure-wrap
+        className="pointer-events-none absolute inset-x-0 top-[16%] bottom-[18%] z-10 flex justify-center md:top-[6%] md:bottom-14"
+      >
+        <div data-figure className="h-full origin-center">
           <div data-float className="h-full">
             <Image
               src={slide.image}
@@ -400,7 +418,7 @@ function SlideLayer({
       </div>
 
       {/* Name label */}
-      <div className="absolute right-5 bottom-[calc(1.5rem+3.75rem)] left-5 text-left md:right-[8%] md:bottom-[14%] md:left-auto md:text-right">
+      <div className="absolute right-5 bottom-[calc(1.5rem+3.75rem)] left-5 z-20 text-left md:right-[8%] md:bottom-[14%] md:left-auto md:text-right">
         <p
           data-label-line
           className="font-[family-name:var(--font-crew)] text-[clamp(1.35rem,2.7vw,2.75rem)] leading-none font-extrabold uppercase drop-shadow-[0_2px_10px_rgba(0,0,0,0.15)]"
