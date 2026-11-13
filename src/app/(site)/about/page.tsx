@@ -1,7 +1,9 @@
 import Image from "next/image";
-import { aboutCopy, ceo, processSteps, realEstateTypes } from "@/content/site";
-import { team } from "@/content/team";
-import { crewSlides } from "@/content/crew-showcase";
+import Link from "next/link";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { aboutCopy, ceo, processSteps, realEstateTypes, site } from "@/content/site";
+import { services } from "@/content/services";
+import { fetchFeaturedProjects, fetchTestimonials } from "@/lib/firebase/collections";
 import { cloudinaryUrl } from "@/lib/cloudinary";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema } from "@/lib/seo/schema";
@@ -10,28 +12,44 @@ import {
   PaperPlane,
   SectionHeading,
   Sheet,
+  StickyNote,
   Tape,
 } from "@/components/paper/primitives";
 import { PaperSection } from "@/components/paper/torn-edge";
 import { Reveal } from "@/components/paper/reveal";
-import { TeamCard } from "@/components/paper/flip-card";
 import { PageHero } from "@/components/sections/page-hero";
 import { CtaBand } from "@/components/sections/cta-band";
-import { CrewShowcase } from "@/components/sections/crew-showcase";
-import { CrewCards } from "@/components/sections/crew-cards";
-import { crewCards } from "@/content/crew-cards";
+import { ProjectCard } from "@/components/sections/project-card";
+import { TestimonialsSection } from "@/components/sections/testimonials";
 import { JsonLd } from "@/components/seo/json-ld";
+import { ButtonLink } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 
 export const metadata = buildMetadata({
   title: "About Us",
   description:
-    "Synovative is a 360° real estate marketing agency founded in 2019. Meet the team, see how we work, and the kinds of projects we market.",
+    "Synovative is a 360° real estate marketing agency founded in 2019. Meet the founder, see how we work, and the kinds of projects we market.",
   path: "/about",
   keywords: ["about synovative", "digital marketing agency team", "marketing studio Mumbai"],
 });
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const [featured, testimonials] = await Promise.all([
+    fetchFeaturedProjects(3),
+    fetchTestimonials(),
+  ]);
+
+  // The last three bands are data-driven and may be empty, so each torn edge
+  // is chosen from whichever band actually comes next.
+  const hasWork = featured.length > 0;
+  const hasReviews = testimonials.length > 0;
+  const servicesTearBottom = !hasWork && hasReviews ? "var(--paper-tint)" : undefined;
+  const ctaTearTop = hasReviews
+    ? "var(--paper-tint)"
+    : hasWork
+      ? "var(--paper-sunken)"
+      : "var(--paper)";
+
   return (
     <>
       <JsonLd
@@ -47,6 +65,25 @@ export default function AboutPage() {
         title={aboutCopy.title}
         description={aboutCopy.intro}
       />
+
+      {/* By the numbers — the hero tears into this band. */}
+      <PaperSection tone="paper">
+        <Container className="pt-20 sm:pt-24">
+          <p className="eyebrow mb-8 text-center">{aboutCopy.stats.eyebrow}</p>
+          <ul className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
+            {site.stats.map((stat, index) => (
+              <Reveal as="li" key={stat.label} delay={index * 90}>
+                <Sheet tiltSeed={`about-${stat.label}`} maxTilt={2.2} className="px-5 py-8 text-center">
+                  <p className="font-display text-4xl font-bold text-brand sm:text-5xl">
+                    {stat.value}
+                  </p>
+                  <p className="mt-2 text-sm leading-tight text-ink-soft">{stat.label}</p>
+                </Sheet>
+              </Reveal>
+            ))}
+          </ul>
+        </Container>
+      </PaperSection>
 
       {/* How Synovative works */}
       <PaperSection tone="paper">
@@ -137,51 +174,40 @@ export default function AboutPage() {
         </Container>
       </PaperSection>
 
-      {/* Crew character showcase */}
-      <CrewShowcase
-        slides={crewSlides}
-        tearTop="var(--paper-tint)"
-        tearBottom="var(--paper)"
-      />
-
-      {/* Team — no top tear: the showcase above tears into this band. */}
-      <PaperSection tone="paper">
+      {/* What we stand by — principles as pinned notes */}
+      <PaperSection tone="paper" tearTop="var(--paper-tint)">
         <Container className="py-24 sm:py-28">
           <SectionHeading
-            eyebrow={aboutCopy.team.eyebrow}
-            watermark="Crew"
+            eyebrow={aboutCopy.beliefs.eyebrow}
+            watermark="Rules"
             align="center"
-            title={aboutCopy.team.title}
-            description={aboutCopy.team.description}
+            title={aboutCopy.beliefs.title}
+            description={aboutCopy.beliefs.description}
             className="mb-16"
           />
 
-          <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {team.map((member, index) => (
-              <li key={member.id}>
-                <TeamCard member={member} index={index} />
-              </li>
+          <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+            {aboutCopy.beliefs.items.map((belief, index) => (
+              <Reveal as="li" key={belief.title} delay={index * 100} className="h-full">
+                <StickyNote
+                  tone={index % 2 ? "brand" : "accent"}
+                  tiltSeed={belief.title}
+                  className="flex h-full flex-col pt-8"
+                >
+                  <Icon name={belief.icon} className="h-7 w-7" strokeWidth={2.2} />
+                  <h3 className="mt-4 font-display text-sm font-bold tracking-[0.1em]">
+                    {belief.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed opacity-85">{belief.body}</p>
+                </StickyNote>
+              </Reveal>
             ))}
           </ul>
         </Container>
       </PaperSection>
 
-      {/* Many hats — crew character card carousel */}
-      <PaperSection tone="tint" tearTop="var(--paper)">
-        <Container size="wide" className="py-24 sm:py-28">
-          <SectionHeading
-            eyebrow="Many hats"
-            watermark="Crafts"
-            title="Two people, six crafts"
-            description="Vipul and Nishant each own more than one part of a launch. Flip through the cards to see who handles what, from the first brand sketch to the final cut."
-            className="mb-8"
-          />
-          <CrewCards cards={crewCards} />
-        </Container>
-      </PaperSection>
-
       {/* Property types we market */}
-      <PaperSection tone="brand" tearTop="var(--paper-tint)" tearBottom="var(--paper)">
+      <PaperSection tone="brand" tearTop="var(--paper)" tearBottom="var(--paper)">
         <Container className="py-24 sm:py-28">
           <SectionHeading
             eyebrow="What we market"
@@ -213,9 +239,105 @@ export default function AboutPage() {
         </Container>
       </PaperSection>
 
+      {/* Under one roof — every service, linked */}
+      <PaperSection tone="paper" tearBottom={servicesTearBottom}>
+        <Container className="py-24 sm:py-28">
+          <SectionHeading
+            eyebrow={aboutCopy.services.eyebrow}
+            watermark="Services"
+            align="center"
+            title={aboutCopy.services.title}
+            description={aboutCopy.services.description}
+            className="mb-16"
+          />
+
+          <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {services.map((service, index) => (
+              <Reveal as="li" key={service.slug} delay={(index % 3) * 90} className="h-full">
+                <Link href={`/services/${service.slug}`} className="group block h-full">
+                  <Sheet
+                    tiltSeed={`about-${service.slug}`}
+                    maxTilt={1.4}
+                    className="flex h-full flex-col p-6 transition-transform duration-200 group-hover:-translate-y-1"
+                  >
+                    <div className="flex items-start justify-between gap-4">
+                      <span
+                        className={
+                          service.tone === "accent"
+                            ? "flex h-12 w-12 items-center justify-center rounded-full bg-accent-wash text-accent-deep"
+                            : "flex h-12 w-12 items-center justify-center rounded-full bg-brand-wash text-brand"
+                        }
+                      >
+                        <Icon name={service.icon} className="h-5 w-5" strokeWidth={2.2} />
+                      </span>
+                      <ArrowUpRight
+                        aria-hidden="true"
+                        className="h-5 w-5 text-ink-faint transition-colors group-hover:text-brand"
+                      />
+                    </div>
+                    <h3 className="mt-5 font-display text-lg font-bold text-ink">{service.name}</h3>
+                    <p className="mt-1 font-hand text-lg text-brand">{service.tagline}</p>
+                    <p className="mt-3 text-sm leading-relaxed text-ink-soft">{service.summary}</p>
+                  </Sheet>
+                </Link>
+              </Reveal>
+            ))}
+
+            <Reveal as="li" delay={(services.length % 3) * 90} className="h-full">
+              <StickyNote tone="brand" tiltSeed="about-all-services" className="flex h-full flex-col justify-between gap-6">
+                <p className="font-hand text-2xl leading-snug">
+                  Need the whole property package? That’s our favourite kind of brief.
+                </p>
+                <Link
+                  href="/services"
+                  className="inline-flex items-center gap-2 font-display text-sm font-semibold hover:underline"
+                >
+                  See how it fits together
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
+              </StickyNote>
+            </Reveal>
+          </ul>
+        </Container>
+      </PaperSection>
+
+      {/* Featured work */}
+      {hasWork && (
+        <PaperSection
+          tone="sunken"
+          tearTop="var(--paper)"
+          tearBottom={hasReviews ? "var(--paper-tint)" : undefined}
+        >
+          <Container className="py-24 sm:py-28">
+            <div className="mb-14 flex flex-wrap items-end justify-between gap-6">
+              <SectionHeading
+                eyebrow={aboutCopy.work.eyebrow}
+                watermark="Projects"
+                title={aboutCopy.work.title}
+                description={aboutCopy.work.description}
+              />
+              <ButtonLink href="/portfolio" variant="paper" size="sm" className="shrink-0">
+                See the portfolio
+                <ArrowRight className="h-4 w-4" />
+              </ButtonLink>
+            </div>
+
+            <ul className="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
+              {featured.map((project, index) => (
+                <Reveal as="li" key={project.id} delay={index * 90}>
+                  <ProjectCard project={project} />
+                </Reveal>
+              ))}
+            </ul>
+          </Container>
+        </PaperSection>
+      )}
+
+      <TestimonialsSection testimonials={testimonials} />
+
       <CtaBand
         tone="accent"
-        tearTop="var(--paper)"
+        tearTop={ctaTearTop}
         eyebrow={aboutCopy.cta.eyebrow}
         heading={aboutCopy.cta.heading}
         body={aboutCopy.cta.body}

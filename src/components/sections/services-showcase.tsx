@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type ComponentProps } from "react";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { services } from "@/content/services";
@@ -77,9 +77,11 @@ function frameForAngle(deg: number) {
 }
 
 export function ServicesShowcase({
+  tone = "paper",
   tearTop,
   tearBottom,
 }: {
+  tone?: ComponentProps<typeof PaperSection>["tone"];
   tearTop?: string;
   tearBottom?: string;
 }) {
@@ -310,7 +312,7 @@ export function ServicesShowcase({
   );
 
   return (
-    <PaperSection tone="paper" tearTop={tearTop} tearBottom={tearBottom}>
+    <PaperSection tone={tone} tearTop={tearTop} tearBottom={tearBottom}>
       <div ref={sectionRef}>
         <Container size="wide" className="py-24 sm:py-28">
           <SectionHeading

@@ -145,6 +145,53 @@ export const aboutCopy = {
     description:
       "Hover or scroll a card to see the brains locked in Synovative.",
   },
+  stats: {
+    eyebrow: "Since 2019, in numbers",
+  },
+  /**
+   * The About page's principles. Each one restates a commitment already made
+   * in the FAQs, so the two pages never disagree.
+   */
+  beliefs: {
+    eyebrow: "What we stand by",
+    title: "A few things we don’t negotiate on",
+    description:
+      "Not a values poster. Just the rules we work by, written down so you can hold us to them.",
+    items: [
+      {
+        title: "ONE TEAM, ONE STORY",
+        body: "Brand, social, film, web and ads sit in the same room, so the story doesn’t change between the hoarding and the landing page.",
+        icon: "Users",
+      },
+      {
+        title: "YOUR DATA STAYS YOURS",
+        body: "Ad spend runs on your own account. Our fee is separate, and never a hidden cut of the media budget.",
+        icon: "ShieldCheck",
+      },
+      {
+        title: "YOU OWN THE WORK",
+        body: "On final payment, the raw footage, source files and design assets are handed over to you. All of them.",
+        icon: "FolderOpen",
+      },
+      {
+        title: "THE MISSES GET REPORTED TOO",
+        body: "Monthly reports cover what worked, what didn’t, and what we’re changing next. Plainly.",
+        icon: "ClipboardCheck",
+      },
+    ],
+  },
+  services: {
+    eyebrow: "Under one roof",
+    title: "Everything a launch needs, from one desk",
+    description:
+      "Pick one piece or the whole property package. Either way, it’s the same team on it.",
+  },
+  work: {
+    eyebrow: "The proof",
+    title: "Some of the work, out in the wild",
+    description:
+      "Launch campaigns, brand systems, property films and the sites they land on.",
+  },
   fluent: {
     title: "We are fluent in real estate",
     description:

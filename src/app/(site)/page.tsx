@@ -16,7 +16,6 @@ import {
   StickyNote,
 } from "@/components/paper/primitives";
 import { PaperSection } from "@/components/paper/torn-edge";
-import { HangingTags } from "@/components/paper/hanging-tags";
 import { Reveal } from "@/components/paper/reveal";
 import { HomeHero } from "@/components/sections/home-hero";
 import { ProjectCard } from "@/components/sections/project-card";
@@ -101,32 +100,12 @@ export default async function HomePage() {
         </Container>
       </PaperSection>
 
-      {/* Services — the hanging tags */}
-      <PaperSection
+      {/* Our services — the mascot who watches the cursor */}
+      <ServicesShowcase
         tone="tint"
         tearTop="var(--paper)"
         tearBottom="var(--paper)"
-      >
-        <Container className="py-28 sm:py-32">
-          <SectionHeading
-            eyebrow={homeCopy.services.eyebrow}
-            watermark="Services"
-            align="center"
-            title={homeCopy.services.title}
-            description={homeCopy.services.description}
-            className="mb-16"
-          />
-
-          <HangingTags />
-
-          <div className="mt-16 flex justify-center">
-            <ButtonLink href="/services" variant="outline">
-              Go on, see more
-              <ArrowRight className="h-4 w-4" />
-            </ButtonLink>
-          </div>
-        </Container>
-      </PaperSection>
+      />
 
       {/* Featured projects */}
       <PaperSection tone="paper">
@@ -204,12 +183,6 @@ export default async function HomePage() {
           </StickyNote>
         </Container>
       </PaperSection>
-
-      {/* Our services — the mascot who watches the cursor */}
-      <ServicesShowcase
-        tearTop="var(--paper-sunken)"
-        tearBottom="var(--paper-tint)"
-      />
 
       <TestimonialsSection
         testimonials={testimonials}

@@ -13,17 +13,39 @@ import { cn } from "@/lib/utils";
 // `components/providers/smooth-scroll.tsx`, mounted once in the site layout.
 gsap.registerPlugin(ScrollTrigger);
 
-// Frames extracted from Hero_Video_4_raw.mp4 (every 2nd frame) — see the
-// ffmpeg command at the bottom of this file.
+// Two frame sets, each every 2nd frame of its source video — see the ffmpeg
+// commands at the bottom of this file. Both sources run 1160 frames, so both
+// sets are 580 frames and scrub at the same pace.
+//   desktop: Hero_Video_4_raw.mp4 (landscape, 1920w)
+//   mobile:  Syno_Landing video_V05_Vertical Format.mp4 (portrait, 720w)
 const FRAME_COUNT = 580;
-const framePath = (i: number) =>
-  `/frames/hero/frame_${String(i + 1).padStart(4, "0")}.webp`;
+const FRAME_DIRS = { desktop: "hero", mobile: "hero-mobile" } as const;
+type FrameSet = keyof typeof FRAME_DIRS;
+
+// Matches Tailwind's `md` breakpoint: below it, use the vertical video.
+const MOBILE_QUERY = "(max-width: 767px)";
+
+const framePath = (set: FrameSet, i: number) =>
+  `/frames/${FRAME_DIRS[set]}/frame_${String(i + 1).padStart(4, "0")}.webp`;
 
 export function Hero() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const [framesReady, setFramesReady] = useState(false);
+  // Unknown until mounted, so nothing loads before the viewport is known.
+  const [frameSet, setFrameSet] = useState<FrameSet | null>(null);
+
+  useEffect(() => {
+    const query = window.matchMedia(MOBILE_QUERY);
+    const update = () => {
+      setFramesReady(false);
+      setFrameSet(query.matches ? "mobile" : "desktop");
+    };
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
 
   // Jumps straight past the 1500vh intro — `immediate` so Lenis does not
   // animate (and scrub the whole sequence) on the way down. Routed through
@@ -34,7 +56,7 @@ export function Hero() {
     const canvas = canvasRef.current;
     const wrapper = wrapperRef.current;
     const context = canvas?.getContext("2d");
-    if (!canvas || !wrapper || !context) return;
+    if (!canvas || !wrapper || !context || !frameSet) return;
 
     const images: HTMLImageElement[] = new Array(FRAME_COUNT);
     const loaded: boolean[] = new Array(FRAME_COUNT).fill(false);
@@ -82,7 +104,7 @@ export function Hero() {
       new Promise<void>((resolve) => {
         const img = new Image();
         img.decoding = "async";
-        img.src = framePath(i);
+        img.src = framePath(frameSet, i);
         images[i] = img;
         img
           .decode()
@@ -163,7 +185,7 @@ export function Hero() {
       window.removeEventListener("resize", resize);
       ctx.revert();
     };
-  }, []);
+  }, [frameSet]);
 
   return (
     <div ref={wrapperRef} data-hero-frames className="relative h-[1500vh] z-[2]">
@@ -217,3 +239,4 @@ export function Hero() {
 
 // Frame extraction (run from the project root):
 // ffmpeg -i public/videos/Hero_Video_4_raw.mp4 -vf "select='not(mod(n\,2))',scale=1920:-2" -fps_mode vfr -c:v libwebp -quality 72 -compression_level 6 public/frames/hero/frame_%04d.webp
+// ffmpeg -i "public/videos/Syno_Landing video_V05_Vertical Format.mp4" -vf "select='not(mod(n\,2))',scale=720:-2" -fps_mode vfr -c:v libwebp -quality 72 -compression_level 6 public/frames/hero-mobile/frame_%04d.webp
